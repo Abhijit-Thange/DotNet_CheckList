@@ -11,6 +11,8 @@ using CRUD_Operations_Product_and_Category.DAL;
 using CRUD_Operations_Product_and_Category.Models;
 using System.Web.Routing;
 using System.Security.Cryptography;
+using System.Data.SqlClient;
+using System.Web.UI;
 
 namespace CRUD_Operations_Product_and_Category.Controllers
 {
@@ -19,11 +21,22 @@ namespace CRUD_Operations_Product_and_Category.Controllers
         private DataManager db = new DataManager();
 
         // GET: Products
-        public async Task<ActionResult> GetProductIndex(int? id)
+        public async Task<ActionResult> GetProductIndex(int? id,int? page)
         {
             ViewBag.Id = id;
             if(id != null)
             {
+                int pageNumber = page ?? 1;
+                int pageSize = 3;
+                var data = await db.Database.SqlQuery<Product>("getCategoryDataWithPageSize @Page, @Size",
+                    new SqlParameter("@Page", pageNumber),
+                    new SqlParameter("@Size", pageSize)).ToListAsync();
+
+                var totalRecord = db.Categories.Count();
+                var totalPages = (int)Math.Ceiling((double)(totalRecord / pageSize));
+
+                ViewBag.TotalPage = totalPages + 1;
+
                 var product = await db.Products.Where(x => x.CategoryId == id).ToListAsync();
                 return View(product);
             }

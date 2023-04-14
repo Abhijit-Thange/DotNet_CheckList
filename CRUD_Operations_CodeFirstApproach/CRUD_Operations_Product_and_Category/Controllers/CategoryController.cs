@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using CRUD_Operations_Product_and_Category.DAL;
 using CRUD_Operations_Product_and_Category.Models;
+using System.Data.SqlClient;
 
 namespace CRUD_Operations_Product_and_Category.Controllers
 {
@@ -17,10 +18,21 @@ namespace CRUD_Operations_Product_and_Category.Controllers
         private DataManager db = new DataManager();
 
         // GET: Category
-        public async Task<ActionResult> GetCategoryIndex()
+        public async Task<ActionResult> GetCategoryIndex(int? page)
         {
-           // var data = await db.Database.SqlQuery<Category>($"getCategoryDataWithPageSize @Page,@Size",);
-            var data = await db.Categories.ToListAsync();
+            int pageNumber = page ?? 1;
+            int pageSize = 3;
+            var data= await db.Database.SqlQuery<Category>("getCategoryDataWithPageSize @Page, @Size",
+                new SqlParameter("@Page",pageNumber),
+                new SqlParameter("@Size",pageSize)).ToListAsync();
+
+            var totalRecord=db.Categories.Count();
+            var totalPages = (int)Math.Ceiling((double)(totalRecord / pageSize));
+
+            ViewBag.TotalPage = totalPages+1;
+
+           // var d = await db.Database.SqlQuery<Category>("getCategoryDataWithPageSize",@Page,@Size).ToListAsync();
+           // var data = await db.Categories.ToListAsync();
             return View(data);
         }
 
