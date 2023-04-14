@@ -1,0 +1,9 @@
+packages/
+bin/
+obj/
+*.user
+*.suo
+*.log
+Web.Config
+App.Config
+App_Data/
