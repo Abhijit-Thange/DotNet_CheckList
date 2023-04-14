@@ -1,0 +1,40 @@
+﻿@using SampleMVCApp.Models;
+@{
+    ViewBag.Title = "CategoryList";
+    List<Category> ctr = ViewData["list"] as List<Category>;
+    string message = ViewData["message"] as string;
+}
+
+
+<center><h2>CategoryList</h2></center>
+<a href="/Categories/InsertProductCategory">Add Category</a>
+<h3 style="color:red">@message</h3>
+@{
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Category_Id</th>
+            <th>Category_Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ 
+            foreach( Category r in ctr)
+            {
+                ViewData["id"] = r.CategoryId;
+                var id = ViewData["id"];
+                <tr>
+                    <td>@r.CategoryId</td>
+                    <td>@r.CategoryName</td>
+                    <td> <a href="@Url.Action("InsertProduct","Product",new {from=id})">AddProduct</a></td>
+                    <td> <a href="@Url.Action("UpdateProductCategory","Categories",new {from=id})">UpdateCategory</a></td>
+                    <td> <a href="@Url.Action("DeleteProductCategory","Categories",new {id=id})">DeleteCategory</a></td>
+                    <td> <a href="@Url.Action("GetProduct","Product",new {id=id})">Details</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+    </table>
+}
+

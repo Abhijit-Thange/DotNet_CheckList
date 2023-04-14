@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    
+}
+
+<h2>Index</h2>
+
+<table class="table table-striped table-dark">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Standard</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ 
+            foreach(IEnumerable_IQueryable_Demo.Models.Student s in ViewBag.Data)
+            {
+                <tr>
+                    <td>@s.Id</td>
+                    <td>@s.FirstName</td>
+                    <td>@s.LastName</td>
+                    <td>@s.Standard</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+

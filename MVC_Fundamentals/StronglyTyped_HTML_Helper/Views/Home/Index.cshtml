@@ -1,0 +1,24 @@
+﻿@using StronglyTyped_HTML_Helper.Models
+
+@model Employee
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm())
+  {
+    @Html.Label("Name :");<br />
+   @Html.TextBoxFor(x => x.Name);
+    <br />
+    @Html.Label("Id :");<br />
+   @Html.TextBoxFor(x => x.Id);
+    <br />
+    @Html.CheckBoxFor(x => x.IsActive);
+    <br />
+    
+    <input type="submit" value="OK"/>
+
+  }
+

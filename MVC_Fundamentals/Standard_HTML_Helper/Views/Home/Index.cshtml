@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index Home</h2>
+
+@using (Html.BeginForm()) //if use using so need end form helper
+{ 
+
+}
+
+@Html.ActionLink("click me", "About", new { name = "Abhijit" })
+<br />
+@Html.ActionLink("click me", "Index", "Student")
+<br />
+@{string name = "Abhijit";}
+
+@Html.TextBox("textbox", name, new { id = "name", @class = "form-control", style = "color:red" })
+                   @{ //value    //id name           //
+                       } 
+<br />
+@Html.CheckBox("checkbox", true, new {id="10"})
+<br />
+@Html.Password("pqrs")
+
+

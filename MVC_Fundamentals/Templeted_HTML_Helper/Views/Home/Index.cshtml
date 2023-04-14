@@ -1,0 +1,30 @@
+﻿@using Templeted_HTML_Helper.Models
+@model Employee
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@Html.DisplayName("Name");
+<br />
+@Html.DisplayNameFor(x => x.Name); @{//Display Property Name)
+}
+
+@Html.DisplayText("Name")
+@Html.DisplayTextFor(x => x.DateOfBirth); @{ //Display Value
+}
+@Html.EditorFor(x => x.BirthTime);
+
+<br />
+<hr />
+@using (Html.BeginForm())
+{
+    @Html.EditorForModel();
+
+    <input type="submit" value="Insert Data"/>
+}
+
+
+
+

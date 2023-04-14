@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "GetProduct";
+}
+
+<center><h2>Product List</h2></center>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product Id</th>
+            <th>Product Name</th>
+            <th>Category Id</th>
+            <th>Product Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ 
+            foreach(var d in (IEnumerable<SampleMVCApp.Models.Product>)ViewBag.Products )
+            {
+                ViewData["id"] = d.ProductId;
+                var id = ViewData["id"];
+                <tr>
+                    <th>@d.ProductId</th>
+                    <th>@d.ProductName</th>
+                    <th>@d.CategoryId</th>
+                    <th></th>
+                    
+                    <td> <a href="@Url.Action("UpdateProduct","Product",new {from=id})">Update</a></td>
+                    <td> <a href="@Url.Action("DeleteProduct","Product",new {id=id})">Delete</a></td>
+                    <td> <a href="@Url.Action("GetProduct","Product",new {id=id})">Details</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+

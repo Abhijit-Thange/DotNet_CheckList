@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "InsertProductCategory";
+
+}
+
+<h2>InsertProductCategory</h2>
+
+<form method="POST" action="/categories/insertproductcategory">
+    <div class="form-group">
+        <label for="CategoryId">Category Id:</label>
+        <input type="text" class="form-control" id="CategoryId" name="CategoryId">
+    </div>
+    <div class="form-group">
+        <label for="CategoryName">Category Name:</label>
+        <input type="text" class="form-control" id="CategoryName" name="CategoryName">
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Insert New Product Category</button>
+    </div>
+   
+</form>
+

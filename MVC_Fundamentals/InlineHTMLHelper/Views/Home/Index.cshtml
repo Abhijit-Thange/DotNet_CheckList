@@ -1,0 +1,26 @@
+﻿
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <h1>Index 2</h1>
+</head>
+<body>
+    <div>
+        @helper MyHelper(string[] str)
+        {
+            foreach (string s in str)
+            {
+                <li>@s</li>
+            }
+        }
+    </div>
+    <div>@MyHelper(new string[] { "abc", "def", "pQR" })</div>
+
+    <div>@MyHelper(new string[] { "xyz", "stu", "uvw" })</div>
+</body>
+</html>
