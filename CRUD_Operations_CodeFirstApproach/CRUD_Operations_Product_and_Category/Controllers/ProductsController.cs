@@ -28,17 +28,23 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             {
                 int pageNumber = page ?? 1;
                 int pageSize = 3;
-                var data = await db.Database.SqlQuery<Product>("getCategoryDataWithPageSize @Page, @Size",
-                    new SqlParameter("@Page", pageNumber),
-                    new SqlParameter("@Size", pageSize)).ToListAsync();
+                var products = await db.Database.SqlQuery<Product>("sp_getProductDataWithPageSize @PageNo, @PageSize, @CategoryId",
+                    new SqlParameter("@PageNo", pageNumber),
+                    new SqlParameter("@PageSize", pageSize),
+                    new SqlParameter("@CategoryId",id)).ToListAsync();
 
-                var totalRecord = db.Categories.Count();
-                var totalPages = (int)Math.Ceiling((double)(totalRecord / pageSize));
+                var totalRecord = db.Products.ToList().Where(a=>a.CategoryId == id).Count();
+                int findPages = (totalRecord / pageSize);
+                var totalPages = 0;
+                if ((totalRecord % pageSize) == 0)
+                    totalPages = findPages;
+                else
+                    totalPages = findPages + 1;
 
-                ViewBag.TotalPage = totalPages + 1;
+                ViewBag.TotalPage = totalPages;
 
-                var product = await db.Products.Where(x => x.CategoryId == id).ToListAsync();
-                return View(product);
+              //  var product = await db.Products.Where(x => x.CategoryId == id).ToListAsync();
+                return View(products);
             }
             return View(TempData["BetweenDate"]);  
            

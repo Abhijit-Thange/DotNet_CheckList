@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using CRUD_Operations_Product_and_Category.DAL;
 using CRUD_Operations_Product_and_Category.Models;
 using System.Data.SqlClient;
+using System.Web.Routing;
 
 namespace CRUD_Operations_Product_and_Category.Controllers
 {
@@ -22,14 +23,20 @@ namespace CRUD_Operations_Product_and_Category.Controllers
         {
             int pageNumber = page ?? 1;
             int pageSize = 3;
-            var data= await db.Database.SqlQuery<Category>("getCategoryDataWithPageSize @Page, @Size",
+            var data= await db.Database.SqlQuery<Category>("sp_getCategoryDataWithPageSize @Page, @Size",
                 new SqlParameter("@Page",pageNumber),
                 new SqlParameter("@Size",pageSize)).ToListAsync();
 
             var totalRecord=db.Categories.Count();
-            var totalPages = (int)Math.Ceiling((double)(totalRecord / pageSize));
+            int findPages = (totalRecord / pageSize);
+            var totalPages=0;
+            if ((totalRecord % pageSize)==0)
+             totalPages = findPages;
+            else
+                totalPages = findPages+1;
 
-            ViewBag.TotalPage = totalPages+1;
+            ViewBag.TotalPage = totalPages;
+            ViewBag.PageNo = pageNumber;
 
            // var d = await db.Database.SqlQuery<Category>("getCategoryDataWithPageSize",@Page,@Size).ToListAsync();
            // var data = await db.Categories.ToListAsync();
@@ -110,20 +117,20 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return RedirectToAction("GetCategoryIndex");
         }
 
-        public async Task<ActionResult> ActivateCategory(int id)
+        public async Task<ActionResult> ActivateCategory(int id,int page)
         {
             var category =await db.Categories.FindAsync(id);
             category.IsActive = true;
            await db.SaveChangesAsync();
-            return RedirectToAction("GetCategoryIndex");
+            return RedirectToAction("GetCategoryIndex",new RouteValueDictionary(new {page = page}));
         }
 
-        public async Task<ActionResult> DeactivateCategory(int id)
+        public async Task<ActionResult> DeactivateCategory(int id, int page)
         {
             var category =await db.Categories.FindAsync(id);
             category.IsActive = false;
            await db.SaveChangesAsync();
-            return RedirectToAction("GetCategoryIndex"); 
+            return RedirectToAction("GetCategoryIndex", new RouteValueDictionary(new { page = page })); 
         }
 
     }
