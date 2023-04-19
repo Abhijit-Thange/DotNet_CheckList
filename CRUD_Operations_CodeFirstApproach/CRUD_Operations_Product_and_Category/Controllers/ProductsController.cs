@@ -18,22 +18,22 @@ namespace CRUD_Operations_Product_and_Category.Controllers
 {
     public class ProductsController : Controller
     {
-        private DataManager db = new DataManager();
+         DataManager db = new DataManager();
 
         // GET: Products
-        public async Task<ActionResult> GetProductIndex(int? id,int? page)
+        public async Task<ActionResult> GetProductIndex(int? CategoryId, int? page)
         {
-            ViewBag.Id = id;
-            if(id != null)
+            ViewBag.CategoryId = CategoryId;
+            if(CategoryId != null)
             {
                 int pageNumber = page ?? 1;
                 int pageSize = 3;
                 var products = await db.Database.SqlQuery<Product>("sp_getProductDataWithPageSize @PageNo, @PageSize, @CategoryId",
                     new SqlParameter("@PageNo", pageNumber),
                     new SqlParameter("@PageSize", pageSize),
-                    new SqlParameter("@CategoryId",id)).ToListAsync();
+                    new SqlParameter("@CategoryId", CategoryId)).ToListAsync();
 
-                var totalRecord = db.Products.ToList().Where(a=>a.CategoryId == id).Count();
+                var totalRecord = db.Products.ToList().Where(a=>a.CategoryId == CategoryId).Count();
                 int findPages = (totalRecord / pageSize);
                 var totalPages = 0;
                 if ((totalRecord % pageSize) == 0)
@@ -47,13 +47,12 @@ namespace CRUD_Operations_Product_and_Category.Controllers
                 return View(products);
             }
             return View(TempData["BetweenDate"]);  
-           
             
         }
 
-        public async Task<ActionResult> ProductDetails(int? id)
+        public async Task<ActionResult> ProductDetails(int? ProductId)
         {
-            Product product = await db.Products.FindAsync(id);
+            Product product = await db.Products.FirstOrDefaultAsync(a => a.ProductId == ProductId);
             if (product == null)
             {
                 ViewBag.ErrorMessage="Product Not Found";
@@ -62,9 +61,9 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(product);
         }
 
-        public ActionResult AddProduct(int id)
+        public ActionResult AddProduct(int CategoryId)
         {
-            ViewBag.Id = id;
+            ViewBag.CategoryId = CategoryId;
             return View();
         }
 
@@ -75,15 +74,15 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             {
                 db.Products.Add(product);
                 await db.SaveChangesAsync();
-                return RedirectToAction("GetProductIndex",new RouteValueDictionary( new { id = product.CategoryId }));
+                return RedirectToAction("GetProductIndex",new RouteValueDictionary( new { CategoryId = product.CategoryId }));
             }
 
             return View(product);
         }
 
-        public async Task<ActionResult> EditProductInfo(int id)
+        public async Task<ActionResult> EditProductInfo(int ProductId)
         {
-            var product = await db.Products.FindAsync(id);
+            var product = await db.Products.FirstOrDefaultAsync(x => x.ProductId == ProductId);
             return View(product);
         }
 
@@ -106,19 +105,19 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(products);
         }
 
-        public async Task<ActionResult> DeleteProduct(int id)
+        public async Task<ActionResult> DeleteProduct(int ProductId)
         {
-            Product product = await db.Products.FindAsync(id);
+            Product product = await db.Products.FirstOrDefaultAsync(x=>x.ProductId == ProductId);
             return View(product);
         }
 
         [HttpPost, ActionName("DeleteProduct")]
-        public async Task<ActionResult> Delete(int id,Product pro)
+        public async Task<ActionResult> Delete(int ProductId, Product pro)
         {
-            Product product = await db.Products.FindAsync(id);
+            Product product = await db.Products.FindAsync(ProductId);
             db.Products.Remove(product);
             await db.SaveChangesAsync();
-            return RedirectToAction("GetProductIndex", new RouteValueDictionary(new { id = pro.CategoryId }));
+            return RedirectToAction("GetProductIndex", new RouteValueDictionary(new { CategoryId = pro.CategoryId }));
         }
 
 

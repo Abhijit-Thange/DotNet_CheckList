@@ -8,11 +8,13 @@ namespace CRUD_Operations_Product_and_Category.Controllers
 {
     public class HomeController : Controller
     {
+     //   [Authorize]
         public ActionResult Index()
         {
             return RedirectToAction("GetCategoryIndex", "Category");
         }
 
+        [AllowAnonymous]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

@@ -52,7 +52,7 @@
     @Html.HiddenFor(model => model.CategoryId)
     <div class="form-actions no-color">
         <input type="submit" value="Delete" class="btn btn-default" /> |
-        @Html.ActionLink("Back to List", "GetProductIndex", new { id = Model.CategoryId })
+        @Html.ActionLink("Back to List", "GetProductIndex", new { CategoryId = Model.CategoryId })
     </div>
 </div>
     }

@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "AddProduct", new { id = ViewBag.Id })
+    @Html.ActionLink("Create New", "AddProduct", new { CategoryId = ViewBag.CategoryId })
 </p>
 <table class="table">
     <tr>
@@ -42,9 +42,9 @@
                 @Html.DisplayFor(modelItem => item.CategoryId)
             </td>
             <td>
-                @Html.ActionLink("Edit", "EditProductInfo", new { id = item.ProductId }) |
-                @Html.ActionLink("Details", "ProductDetails", new { id = item.ProductId }) |
-                @Html.ActionLink("Delete", "DeleteProduct", new { id = item.ProductId })
+                @Html.ActionLink("Edit", "EditProductInfo", new { ProductId = item.ProductId }) |
+                @Html.ActionLink("Details", "ProductDetails", new { ProductId = item.ProductId }) |
+                @Html.ActionLink("Delete", "DeleteProduct", new { ProductId = item.ProductId })
             </td>
         </tr>
     }
@@ -59,7 +59,7 @@
 
         <ul class="pagination">
             <li>
-                @Html.ActionLink(i.ToString(), "GetProductIndex", new { Page = i, id=ViewBag.Id  })
+                @Html.ActionLink(i.ToString(), "GetProductIndex", new { Page = i, CategoryId = ViewBag.CategoryId })
             </li>
         </ul>
 
