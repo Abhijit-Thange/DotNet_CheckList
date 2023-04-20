@@ -25,11 +25,13 @@ namespace CRUD_Operations_Product_and_Category.Controllers
              bool isValid = db.Users.Any(u=>u.UserName == user.UserName && u.Password==user.Password);
             if(isValid)
             {
+
                 // Session["user"]=user;
                 FormsAuthentication.SetAuthCookie(user.UserName, false);
                 return RedirectToAction("Index","Home");
             }
-            ViewBag.ErrorMessage = "UserName Or Password is wrong";
+          //  ViewBag.ErrorMessage = "UserName Or Password is wrong";
+            ModelState.AddModelError("", "UserName Or Password is wrong");
             return View();
         }
 

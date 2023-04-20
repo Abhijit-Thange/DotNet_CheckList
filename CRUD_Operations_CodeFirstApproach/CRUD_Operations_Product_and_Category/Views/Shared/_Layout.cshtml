@@ -22,7 +22,7 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                         @if(User.Identity.IsAuthenticated)
                          {
-                            <li class=class="navbar-nav mr-auto" style="color:aqua">@User.Identity.Name</li>
+                            <li class=class="navbar-nav mr-auto" style="color:aqua">Welcome @User.Identity.Name</li>
                             <li class="btn btn-outline-success my-2 my-sm-0">@Html.ActionLink("Logout","Logout","Account")</li>
                          }
                         else
