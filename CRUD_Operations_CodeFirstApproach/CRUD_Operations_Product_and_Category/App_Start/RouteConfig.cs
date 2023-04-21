@@ -13,6 +13,8 @@ namespace CRUD_Operations_Product_and_Category
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapMvcAttributeRoutes();  //for attribute routing
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

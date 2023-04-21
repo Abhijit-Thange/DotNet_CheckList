@@ -2,7 +2,9 @@
 using CRUD_Operations_Product_and_Category.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -20,18 +22,18 @@ namespace CRUD_Operations_Product_and_Category.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(User user)
+        public async Task<ActionResult> Login(User user)
         {
-             bool isValid = db.Users.Any(u=>u.UserName == user.UserName && u.Password==user.Password);
-            if(isValid)
+             var isValid =await db.Users.FirstOrDefaultAsync(u=>u.UserName == user.UserName && u.Password==user.Password);
+            if(isValid != null )
             {
 
                 // Session["user"]=user;
                 FormsAuthentication.SetAuthCookie(user.UserName, false);
                 return RedirectToAction("Index","Home");
             }
-          //  ViewBag.ErrorMessage = "UserName Or Password is wrong";
-            ModelState.AddModelError("", "UserName Or Password is wrong");
+            ViewBag.ErrorMessage = "UserName Or Password is wrong";
+          //  ModelState.AddModelError("", "UserName Or Password is wrong");
             return View();
         }
 
@@ -41,15 +43,15 @@ namespace CRUD_Operations_Product_and_Category.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignUp(User user)
+        public async Task<ActionResult> SignUp(User user)
         {
             if(ModelState.IsValid) 
             {
                 db.Users.Add(user);
-                db.SaveChanges();
+               await db.SaveChangesAsync();
                 return RedirectToAction("Login");
             }
-            return View();
+            return View(); 
         }
 
         public ActionResult Logout()

@@ -14,10 +14,11 @@ using System.Web.Routing;
 
 namespace CRUD_Operations_Product_and_Category.Controllers
 {
+   // [RoutePrefix("Category")]
     public class CategoryController : Controller
     {
           DataManager db = new DataManager();
-
+      
         // GET: Category
         public async Task<ActionResult> GetCategoryIndex(int? page)
         {
@@ -98,6 +99,8 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(category);
         }
 
+     //   [Route("delete-Category/{CategoryID}")]
+
         public async Task<ActionResult> DeleteCategory(int CategoryId)
         {
             var category = await db.Categories.FirstOrDefaultAsync(p=>p.CategoryId==CategoryId);
@@ -129,6 +132,5 @@ namespace CRUD_Operations_Product_and_Category.Controllers
            await db.SaveChangesAsync();
             return RedirectToAction("GetCategoryIndex", new RouteValueDictionary(new { page = page })); 
         }
-
     }
 }
