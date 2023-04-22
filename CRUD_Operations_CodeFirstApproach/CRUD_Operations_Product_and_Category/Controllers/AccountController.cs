@@ -1,4 +1,5 @@
 ﻿using CRUD_Operations_Product_and_Category.DAL;
+using CRUD_Operations_Product_and_Category.JWT_Authentication;
 using CRUD_Operations_Product_and_Category.Models;
 using System;
 using System.Collections.Generic;
@@ -24,12 +25,31 @@ namespace CRUD_Operations_Product_and_Category.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(User user)
         {
-             var isValid =await db.Users.FirstOrDefaultAsync(u=>u.UserName == user.UserName && u.Password==user.Password);
-            if(isValid != null )
+             var IsUser =await db.Users.FirstOrDefaultAsync(u=>u.UserName == user.UserName && u.Password==user.Password);
+            if(IsUser != null )
             {
 
-                // Session["user"]=user;
-                FormsAuthentication.SetAuthCookie(user.UserName, false);
+                 // Session["user"]=user;
+                 //  FormsAuthentication.SetAuthCookie(user.UserName, false);
+
+                 var JwtToken = TokenManager.GenerateToken(user);
+               //  HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, JwtToken);
+                // Response.Cookies.Add(cookie);
+                 Response.Cookies.Set(new HttpCookie(FormsAuthentication.FormsCookieName, JwtToken));
+
+               /* // Generate the JWT token
+                var JwtToken = TokenManager.GenerateToken(IsUser);
+
+                // Create the Authentication cookie with the JWT token
+                var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, JwtToken);
+
+                // Set the cookie expiration time
+              //  authCookie.Expires = DateTime.Now.AddMinutes(30);
+
+                // Add the cookie to the response object
+                Response.Cookies.Add(authCookie);*/
+
+
                 return RedirectToAction("Index","Home");
             }
             ViewBag.ErrorMessage = "UserName Or Password is wrong";

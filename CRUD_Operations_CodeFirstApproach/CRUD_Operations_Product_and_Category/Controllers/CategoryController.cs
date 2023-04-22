@@ -14,7 +14,7 @@ using System.Web.Routing;
 
 namespace CRUD_Operations_Product_and_Category.Controllers
 {
-   // [RoutePrefix("Category")]
+    [RoutePrefix("Category")]
     public class CategoryController : Controller
     {
           DataManager db = new DataManager();
@@ -73,6 +73,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(category);
         }
 
+        [Route("update-Category")]
         public async Task<ActionResult> EditCategory(int CategoryId)
         {
            
@@ -81,6 +82,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(category);
         }
 
+        [Route("update-Category")]
         [HttpPost]
         public async Task<ActionResult> EditCategory(int CategoryId,Category category)
         {
@@ -99,7 +101,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(category);
         }
 
-     //   [Route("delete-Category/{CategoryID}")]
+        [Route("~/delete-category/{CategoryID}")]
 
         public async Task<ActionResult> DeleteCategory(int CategoryId)
         {
@@ -108,6 +110,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(category);
         }
 
+        [Route("~/delete-category/{CategoryId}")]
         [HttpPost, ActionName("DeleteCategory")]
         public async Task<ActionResult> Delete(int CategoryId)
         {

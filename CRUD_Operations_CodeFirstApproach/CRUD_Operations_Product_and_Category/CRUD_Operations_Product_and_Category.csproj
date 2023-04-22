@@ -181,6 +181,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="JWT_Authentication\TokenManager.cs" />
     <Compile Include="Migrations\202304110955514_InitialModel.cs" />
     <Compile Include="Migrations\202304110955514_InitialModel.designer.cs">
       <DependentUpon>202304110955514_InitialModel.cs</DependentUpon>
@@ -192,6 +193,10 @@
     <Compile Include="Migrations\202304191029345_AddUserTable.cs" />
     <Compile Include="Migrations\202304191029345_AddUserTable.designer.cs">
       <DependentUpon>202304191029345_AddUserTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304221243272_AddUserRoleColumnToUserTable.cs" />
+    <Compile Include="Migrations\202304221243272_AddUserRoleColumnToUserTable.designer.cs">
+      <DependentUpon>202304221243272_AddUserRoleColumnToUserTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
@@ -303,6 +308,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304191029345_AddUserTable.resx">
       <DependentUpon>202304191029345_AddUserTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304221243272_AddUserRoleColumnToUserTable.resx">
+      <DependentUpon>202304221243272_AddUserRoleColumnToUserTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

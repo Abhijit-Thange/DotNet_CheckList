@@ -8,7 +8,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
 {
     public class HomeController : Controller
     {
-     //   [Authorize]
+        [Authorize(Roles = "Hr")]
         public ActionResult Index()
         {
             return RedirectToAction("GetCategoryIndex", "Category");
