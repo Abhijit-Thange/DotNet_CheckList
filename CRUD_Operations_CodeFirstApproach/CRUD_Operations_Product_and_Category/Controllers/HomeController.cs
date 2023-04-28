@@ -6,9 +6,10 @@ using System.Web.Mvc;
 
 namespace CRUD_Operations_Product_and_Category.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
-        [Authorize(Roles = "Hr")]
+        
         public ActionResult Index()
         {
             return RedirectToAction("GetCategoryIndex", "Category");

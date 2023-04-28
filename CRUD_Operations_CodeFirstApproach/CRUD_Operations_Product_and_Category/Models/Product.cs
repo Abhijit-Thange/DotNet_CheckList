@@ -16,6 +16,8 @@ namespace CRUD_Operations_Product_and_Category.Models
         public DateTime MfgDate { get; set; }
         public int CategoryId { get; set; }
 
+        public string CreatedBy { get; set; }
+
         public Product() { }
     }
 }

@@ -76,7 +76,6 @@ namespace CRUD_Operations_Product_and_Category.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("GetProductIndex",new RouteValueDictionary( new { CategoryId = product.CategoryId }));
             }
-
             return View(product);
         }
 
@@ -119,6 +118,16 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("GetProductIndex", new RouteValueDictionary(new { CategoryId = pro.CategoryId }));
         }
+
+        public Task<ActionResult> ProductReport(int? pageNo)
+        {
+            int PageNumber=pageNo ?? 1;
+            int PageSize = 5;
+
+
+            return View();
+        }
+
 
 
         public ActionResult GetFromDateToDateMfgProduct()

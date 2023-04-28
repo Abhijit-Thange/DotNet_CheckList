@@ -198,6 +198,10 @@
     <Compile Include="Migrations\202304221243272_AddUserRoleColumnToUserTable.designer.cs">
       <DependentUpon>202304221243272_AddUserRoleColumnToUserTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304281155268_AddCreatedByColumnToProductTable.cs" />
+    <Compile Include="Migrations\202304281155268_AddCreatedByColumnToProductTable.designer.cs">
+      <DependentUpon>202304281155268_AddCreatedByColumnToProductTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Product.cs" />
@@ -311,6 +315,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304221243272_AddUserRoleColumnToUserTable.resx">
       <DependentUpon>202304221243272_AddUserRoleColumnToUserTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304281155268_AddCreatedByColumnToProductTable.resx">
+      <DependentUpon>202304281155268_AddCreatedByColumnToProductTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

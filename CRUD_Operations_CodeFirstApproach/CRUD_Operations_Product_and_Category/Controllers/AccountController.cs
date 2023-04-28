@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -28,27 +29,10 @@ namespace CRUD_Operations_Product_and_Category.Controllers
              var IsUser =await db.Users.FirstOrDefaultAsync(u=>u.UserName == user.UserName && u.Password==user.Password);
             if(IsUser != null )
             {
-
-                 // Session["user"]=user;
                  //  FormsAuthentication.SetAuthCookie(user.UserName, false);
 
-                 var JwtToken = TokenManager.GenerateToken(user);
-               //  HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, JwtToken);
-                // Response.Cookies.Add(cookie);
-                 Response.Cookies.Set(new HttpCookie(FormsAuthentication.FormsCookieName, JwtToken));
-
-               /* // Generate the JWT token
-                var JwtToken = TokenManager.GenerateToken(IsUser);
-
-                // Create the Authentication cookie with the JWT token
-                var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, JwtToken);
-
-                // Set the cookie expiration time
-              //  authCookie.Expires = DateTime.Now.AddMinutes(30);
-
-                // Add the cookie to the response object
-                Response.Cookies.Add(authCookie);*/
-
+                 var JwtToken = TokenManager.GenerateToken(IsUser);
+                 Response.Cookies.Set(new HttpCookie("token", JwtToken));
 
                 return RedirectToAction("Index","Home");
             }
@@ -74,9 +58,18 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(); 
         }
 
+        [AllowAnonymous]
         public ActionResult Logout()
         {
-            FormsAuthentication.SignOut();
+           // FormsAuthentication.SignOut();
+
+            var cookie = Request.Cookies["token"];
+            if (cookie != null)
+            {
+                cookie.Expires = DateTime.Now.AddSeconds(1);
+            }
+            Response.Cookies.Add(new HttpCookie("token"));
+
             return RedirectToAction("Login");
         }
     }

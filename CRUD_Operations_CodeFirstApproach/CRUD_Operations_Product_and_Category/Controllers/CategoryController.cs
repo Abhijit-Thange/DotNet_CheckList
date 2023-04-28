@@ -14,12 +14,14 @@ using System.Web.Routing;
 
 namespace CRUD_Operations_Product_and_Category.Controllers
 {
+   // [AllowAnonymous]
     [RoutePrefix("Category")]
     public class CategoryController : Controller
     {
           DataManager db = new DataManager();
-      
+
         // GET: Category
+        [AllowAnonymous]
         public async Task<ActionResult> GetCategoryIndex(int? page)
         {
             int pageNumber = page ?? 1;
@@ -55,6 +57,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(category);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateCategory()
         {
             return View();
@@ -73,6 +76,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(category);
         }
 
+        [Authorize(Roles = "Owner")]
         [Route("update-Category")]
         public async Task<ActionResult> EditCategory(int CategoryId)
         {
@@ -81,6 +85,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
            
             return View(category);
         }
+
 
         [Route("update-Category")]
         [HttpPost]
@@ -95,12 +100,12 @@ namespace CRUD_Operations_Product_and_Category.Controllers
                     data.CategoryName=category.CategoryName;
                     await db.SaveChangesAsync();
                     return RedirectToAction("GetCategoryIndex");
-                }
-                
+                }               
             }
             return View(category);
         }
 
+        [Authorize(Roles = "Owner")]
         [Route("~/delete-category/{CategoryID}")]
 
         public async Task<ActionResult> DeleteCategory(int CategoryId)
