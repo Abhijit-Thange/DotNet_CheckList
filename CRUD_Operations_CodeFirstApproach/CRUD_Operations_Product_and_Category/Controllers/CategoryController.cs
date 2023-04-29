@@ -57,7 +57,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(category);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Hr")]
         public ActionResult CreateCategory()
         {
             return View();

@@ -10,5 +10,8 @@ namespace CRUD_Operations_Product_and_Category.POCO
         public string ProductName { get; set; }
         public string CategoryName { get; set; }
         public string CreatedBy { get; set; }
+
+        public Report()
+        { }
     }
 }
