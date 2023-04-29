@@ -119,17 +119,6 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return RedirectToAction("GetProductIndex", new RouteValueDictionary(new { CategoryId = pro.CategoryId }));
         }
 
-        public Task<ActionResult> ProductReport(int? pageNo)
-        {
-            int PageNumber=pageNo ?? 1;
-            int PageSize = 5;
-
-
-            return View();
-        }
-
-
-
         public ActionResult GetFromDateToDateMfgProduct()
         {
             return View();

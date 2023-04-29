@@ -5,6 +5,9 @@
 }
 
 <h2>Category List</h2>
+<p>
+   <a class="btn btn-info" href="/Report/ProductReport">Report</a>
+</p>
 
 <p>
     @Html.ActionLink("Create New", "CreateCategory")
@@ -48,7 +51,7 @@
     for (int i = 1; i <= totalPages; i++)
     {
         
-            <ul class="pagination pagination-lg">
+            <ul class="pagination">
                 <li>
                     @Html.ActionLink(i.ToString(), "GetCategoryIndex", new { Page = i })
                 </li>

@@ -1,4 +1,5 @@
 ﻿using CRUD_Operations_Product_and_Category.Models;
+using CRUD_Operations_Product_and_Category.POCO;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -16,6 +17,7 @@ namespace CRUD_Operations_Product_and_Category.DAL
         public DbSet<Product> Products { get; set; }
 
         public DbSet<User> Users { get; set; }
+       
 
     }
 }
