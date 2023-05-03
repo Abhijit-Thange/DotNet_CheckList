@@ -1,0 +1,62 @@
+﻿@model IEnumerable<CRUD_Operations_Product_and_Category.Models.Category>
+
+@{
+    ViewBag.Title = "Category Index";
+}
+
+<h2>Category List</h2>
+<p>
+    <a class="btn btn-info" href="/Report/ProductReport">Report</a>
+</p>
+
+<p>
+    @Html.ActionLink("Create New", "CreateCategory")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @if(@User.IsInRole("Admin") || User.IsInRole("Hr"))
+                {
+                @Html.ActionLink("Active | ", "ActivateCategory", new { CategoryId = item.CategoryId, page = ViewBag.PageNo })
+                @Html.ActionLink("Deactive ", "DeactivateCategory", new { CategoryId = item.CategoryId, page = ViewBag.PageNo })
+                }
+            </td>
+            <td>
+                @if (item.IsActive == true)
+                {
+                    <a href="@Url.Action("AddProduct", "Products", new { CategoryId = item.CategoryId })">AddProduct | </a>
+                    @Html.ActionLink("Edit | ", "EditCategory", new { CategoryId = item.CategoryId })
+                    @Html.ActionLink("Details | ", "CategoryDetails", new { CategoryId = item.CategoryId })
+                    @Html.ActionLink("Delete | ", "DeleteCategory", new { CategoryId = item.CategoryId })
+                    <a href="@Url.Action("GetProductIndex", "Products", new { CategoryId = item.CategoryId })">ShowProduct</a>
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+@{
+    double totalPages = ViewBag.TotalPage;
+    <ul class="pagination">
+       @{ for (int i = 1; i <= totalPages; i++)
+          {
+        <li class="page-item">
+            @Html.ActionLink(i.ToString(), "GetCategoryIndex", new { Page = i }) &nbsp;
+        </li>
+          }
+        }
+    </ul>
+ }
