@@ -47,7 +47,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             {
                 int pageNumber = page ?? 1;
                 int pageSize = 3;
-                var products = await _GetProductIndex.GetProductIndex(pageNumber, pageSize);
+                var products = await _GetProductIndex.GetProductIndex(CategoryId,pageNumber);
 
                 var totalRecord = db.Products.ToList().Where(a=>a.CategoryId == CategoryId).Count();
                 int findPages = (totalRecord / pageSize);
@@ -105,10 +105,10 @@ namespace CRUD_Operations_Product_and_Category.Controllers
         {
             if (ModelState.IsValid)
             {
-             bool product=  await _EditProduct.EditProduct(ProductId, products);
-                if (product) 
+             Product product=  await _EditProduct.EditProduct(ProductId, products);
+                if (product != null) 
                 { 
-                    return RedirectToAction("GetProductIndex", new RouteValueDictionary(new { id = products.CategoryId }));
+                    return RedirectToAction("GetProductIndex", new RouteValueDictionary(new { CategoryId = products.CategoryId }));
                 }               
             }
             return View(products);

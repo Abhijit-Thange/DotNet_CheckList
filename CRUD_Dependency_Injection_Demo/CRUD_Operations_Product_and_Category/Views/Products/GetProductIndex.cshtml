@@ -56,7 +56,6 @@
 
     for (int i = 1; i <= totalPages; i++)
     {
-
         <ul class="pagination">
             <li>
                 @Html.ActionLink(i.ToString(), "GetProductIndex", new { Page = i, CategoryId = ViewBag.CategoryId })

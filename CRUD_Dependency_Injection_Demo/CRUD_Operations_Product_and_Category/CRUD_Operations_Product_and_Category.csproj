@@ -183,11 +183,20 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="BusinessLogicLayer\CategoryBusinessLogic.cs" />
+    <Compile Include="BusinessLogicLayer\CategoryBusinessLogic\CategoryDetailsRepo.cs" />
+    <Compile Include="BusinessLogicLayer\CategoryBusinessLogic\CreateCategoryRepo.cs" />
+    <Compile Include="BusinessLogicLayer\CategoryBusinessLogic\DeleteCategoryRepo.cs" />
+    <Compile Include="BusinessLogicLayer\CategoryBusinessLogic\GetCategoryIndexRepo.cs" />
+    <Compile Include="BusinessLogicLayer\CategoryBusinessLogic\UpdateCategoryRepo.cs" />
+    <Compile Include="BusinessLogicLayer\Custom.cs" />
+    <Compile Include="BusinessLogicLayer\ProductBusinessLogic.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="DataAccessLayer\DataManager.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -213,8 +222,18 @@
       <DependentUpon>202304281155268_AddCreatedByColumnToProductTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="POCO\Report.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceLayer\CategoryService\ICategoryDetails.cs" />
+    <Compile Include="ServiceLayer\CategoryService\ICreateCategory.cs" />
+    <Compile Include="ServiceLayer\CategoryService\IDeleteCategory.cs" />
+    <Compile Include="ServiceLayer\CategoryService\IGetCategoryIndex.cs" />
+    <Compile Include="ServiceLayer\CategoryService\IUpdateCategory.cs" />
+    <Compile Include="ServiceLayer\Interface1.cs" />
+    <Compile Include="ServiceLayer\IProductBusinessLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -328,12 +347,6 @@
     <EmbeddedResource Include="Migrations\202304281155268_AddCreatedByColumnToProductTable.resx">
       <DependentUpon>202304281155268_AddCreatedByColumnToProductTable.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
-      <Project>{5a32ed36-e5a3-4f00-b04e-3df9bd5ec7bc}</Project>
-      <Name>BusinessLogicLayer</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

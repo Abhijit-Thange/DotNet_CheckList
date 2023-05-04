@@ -11,7 +11,8 @@ using CRUD_Operations_Product_and_Category.DAL;
 using CRUD_Operations_Product_and_Category.Models;
 using System.Data.SqlClient;
 using System.Web.Routing;
-
+using CRUD_Operations_Product_and_Category.ServiceLayer.CategoryService;
+using CRUD_Operations_Product_and_Category.BusinessLogicLayer.CategoryBusinessLogic;
 using BusinessLogicLayer;
 using BusinessLogicLayer.ServiceLayer;
 using BusinessLogicLayer.BusinessLogicLayer;
@@ -22,16 +23,16 @@ namespace CRUD_Operations_Product_and_Category.Controllers
     [RoutePrefix("Category")]
     public class CategoryController : Controller
     {
-        private ICategoryBusinessLogic _GetCategoryIndex = null;
-        private ICategoryBusinessLogic _CategoryDetails = null;
-        private ICategoryBusinessLogic _CreateCategory = null;
-        private ICategoryBusinessLogic _EditCategory = null;
-        private ICategoryBusinessLogic _DeleteCategory = null;
+        private IGetCategoryIndex _GetCategoryIndex = null;
+        private ICategoryDetails _CategoryDetails = null;
+        private ICreateCategory _CreateCategory = null;
+        private IUpdateCategory _EditCategory = null;
+        private IDeleteCategory _DeleteCategory = null;
        // private ICategoryBusinessLogic _GetCategoryIndex = new Custom();
 
 
-        public CategoryController(ICategoryBusinessLogic GetCategoryIndex,ICategoryBusinessLogic CategoryDetails,
-                                  ICategoryBusinessLogic CreateCategory, ICategoryBusinessLogic EditCategory, ICategoryBusinessLogic DeleteCategory) 
+        public CategoryController(IGetCategoryIndex GetCategoryIndex, ICategoryDetails CategoryDetails,
+                                  ICreateCategory CreateCategory, IUpdateCategory EditCategory, IDeleteCategory DeleteCategory) 
         {
             _GetCategoryIndex= GetCategoryIndex;
             _CategoryDetails = CategoryDetails;
