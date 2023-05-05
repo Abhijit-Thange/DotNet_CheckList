@@ -14,20 +14,22 @@ using System.Security.Cryptography;
 using System.Data.SqlClient;
 using System.Web.UI;
 using BusinessLogicLayer.ServiceLayer;
+using CRUD_Operations_Product_and_Category.ServiceLayer.ProductService;
+using CRUD_Operations_Product_and_Category.ServiceLayer.CategoryService;
 
 namespace CRUD_Operations_Product_and_Category.Controllers
 {
     public class ProductsController : Controller
     {
-        private IProductBusinessLogic _GetProductIndex = null;
-        private IProductBusinessLogic _ProductDetails = null;
-        private IProductBusinessLogic _AddProduct = null;
-        private IProductBusinessLogic _EditProduct = null;
-        private IProductBusinessLogic _DeleteProduct = null;
+        private IGetProductIndex _GetProductIndex = null;
+        private IProductDetails _ProductDetails = null;
+        private IAddProduct _AddProduct = null;
+        private IUpdateProduct _EditProduct = null;
+        private IDeleteProduct _DeleteProduct = null;
 
-        public ProductsController(IProductBusinessLogic GetProductIndex, IProductBusinessLogic ProductDetails,
-                                   IProductBusinessLogic AddProduct, IProductBusinessLogic EditProduct,
-                                   IProductBusinessLogic DeleteProduct)
+        public ProductsController(IGetProductIndex GetProductIndex, IProductDetails ProductDetails,
+                                   IAddProduct AddProduct, IUpdateProduct EditProduct,
+                                   IDeleteProduct DeleteProduct)
         { 
             _GetProductIndex=GetProductIndex;
             _ProductDetails=ProductDetails; 
@@ -35,7 +37,6 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             _EditProduct=EditProduct;
             _DeleteProduct=DeleteProduct;
         }
-
 
         DataManager db = new DataManager();
 

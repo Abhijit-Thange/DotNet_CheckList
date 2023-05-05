@@ -19,26 +19,31 @@ using BusinessLogicLayer.BusinessLogicLayer;
 
 namespace CRUD_Operations_Product_and_Category.Controllers
 {
-   // [AllowAnonymous]
     [RoutePrefix("Category")]
     public class CategoryController : Controller
     {
-        private IGetCategoryIndex _GetCategoryIndex = null;
-        private ICategoryDetails _CategoryDetails = null;
-        private ICreateCategory _CreateCategory = null;
-        private IUpdateCategory _EditCategory = null;
-        private IDeleteCategory _DeleteCategory = null;
-       // private ICategoryBusinessLogic _GetCategoryIndex = new Custom();
+        private readonly IGetCategoryIndex _GetCategoryIndex = null;
+        private readonly ICategoryDetails _CategoryDetails = null;
+        private readonly ICreateCategory _CreateCategory = null;
+        private readonly IUpdateCategory _EditCategory = null;
+        private readonly IDeleteCategory _DeleteCategory = null;
+        private readonly IActivateCategory _ActivateCategory = null;
+        private readonly IDeactivateCategory _DeactivateCategory = null;
+        // private ICategoryBusinessLogic _GetCategoryIndex = new Custom();
 
 
         public CategoryController(IGetCategoryIndex GetCategoryIndex, ICategoryDetails CategoryDetails,
-                                  ICreateCategory CreateCategory, IUpdateCategory EditCategory, IDeleteCategory DeleteCategory) 
+                                  ICreateCategory CreateCategory, IUpdateCategory EditCategory,
+                                  IDeleteCategory DeleteCategory, IActivateCategory ActivateCategory,
+                                   IDeactivateCategory DeactivateCategory) 
         {
             _GetCategoryIndex= GetCategoryIndex;
             _CategoryDetails = CategoryDetails;
             _CreateCategory = CreateCategory;
             _EditCategory = EditCategory;
             _DeleteCategory = DeleteCategory;
+            _ActivateCategory = ActivateCategory;
+            _DeactivateCategory = DeactivateCategory;
         }
 
         public CategoryController() { }
@@ -89,6 +94,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
         public async Task<ActionResult> CreateCategory(Category category)
         {
             if (ModelState.IsValid)
+
             {
               await _CreateCategory.CreateCategory(category);
                 return RedirectToAction("GetCategoryIndex");
@@ -99,8 +105,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
         [Authorize(Roles = "Admin")]
         [Route("update-Category")]
         public async Task<ActionResult> EditCategory(int CategoryId)
-        {
-           
+        {           
             Category category = await db.Categories.FirstOrDefaultAsync(c=>c.CategoryId== CategoryId);
            
             return View(category);
@@ -108,7 +113,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
 
 
         [Route("update-Category")]
-        [HttpPost]
+        [HttpPut]
         public async Task<ActionResult> EditCategory(int CategoryId,Category category)
         {
             if (ModelState.IsValid)
@@ -127,8 +132,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
 
         public async Task<ActionResult> DeleteCategory(int CategoryId)
         {
-            var category = await db.Categories.FirstOrDefaultAsync(p=>p.CategoryId==CategoryId);
-           
+            var category = await db.Categories.FirstOrDefaultAsync(p=>p.CategoryId==CategoryId);          
             return View(category);
         }
 
@@ -143,16 +147,13 @@ namespace CRUD_Operations_Product_and_Category.Controllers
 
         public async Task<ActionResult> ActivateCategory(int CategoryId, int page)
         {
-           var active=new CategoryBusinessLogic();
-            await active.ActivateCategory(CategoryId);
+            await _ActivateCategory.ActivateCategory(CategoryId);
             return RedirectToAction("GetCategoryIndex",new RouteValueDictionary(new {page = page}));
         }
 
         public async Task<ActionResult> DeactivateCategory(int CategoryId, int page)
         {
-            var category =await db.Categories.FirstOrDefaultAsync(c=> c.CategoryId== CategoryId);
-            category.IsActive = false;
-           await db.SaveChangesAsync();
+           await _DeactivateCategory.DeactivateCategory(CategoryId);
             return RedirectToAction("GetCategoryIndex", new RouteValueDictionary(new { page = page })); 
         }
     }
