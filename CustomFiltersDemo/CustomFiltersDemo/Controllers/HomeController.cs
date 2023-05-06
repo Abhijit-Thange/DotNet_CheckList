@@ -10,12 +10,12 @@ namespace CustomFiltersDemo.Controllers
     public class HomeController : Controller
     {
         [CustomExceptionFilter]
-         [CustomAuthentication]
+       //  [CustomAuthentication]
          [CustomActionFilter]
         [CustomResultFilter]
         public ActionResult Index()
         {
-            int d = 0;
+            int d = 2;
             var i = 100 / d;
 
             return View();
