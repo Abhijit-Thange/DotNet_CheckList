@@ -113,7 +113,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
 
 
         [Route("update-Category")]
-        [HttpPut]
+        [HttpPost]
         public async Task<ActionResult> EditCategory(int CategoryId,Category category)
         {
             if (ModelState.IsValid)

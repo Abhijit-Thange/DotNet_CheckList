@@ -8,6 +8,8 @@ using System.Data.SqlClient;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Threading.Tasks;
+
+
 using System.Web;
 using System.Web.Mvc;
 
@@ -42,7 +44,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
 
             ViewBag.TotalPage = totalPages;
             ViewBag.Report= report;
-
+          
             return View();
         }
     }
