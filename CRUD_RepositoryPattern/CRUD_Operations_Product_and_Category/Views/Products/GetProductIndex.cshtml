@@ -1,0 +1,67 @@
+﻿@model IEnumerable<CRUD_Operations_Product_and_Category.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddProduct", null, new { CategoryId = ViewBag.CategoryId }, new { @class = "btn btn-outline-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MfgDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MfgDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditProductInfo", new { ProductId = item.ProductId }, new { @class = "btn btn-outline-warning" }) 
+                @Html.ActionLink("Details", "ProductDetails", new { ProductId = item.ProductId }, new { @class = "btn btn-outline-info" }) 
+                @Html.ActionLink("Delete", "DeleteProduct", new { ProductId = item.ProductId }, new { @class = "btn btn-outline-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@{
+    double totalPages = ViewBag.TotalPage;
+
+    for (int i = 1; i <= totalPages; i++)
+    {
+        <ul class="pagination">
+            <li>
+                @Html.ActionLink(i.ToString(), "GetProductIndex", new { Page = i, CategoryId = ViewBag.CategoryId })
+            </li>
+        </ul>
+
+    }
+}
+
