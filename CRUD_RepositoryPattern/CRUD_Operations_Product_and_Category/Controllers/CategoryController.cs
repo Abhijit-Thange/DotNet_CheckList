@@ -28,9 +28,8 @@ namespace CRUD_Operations_Product_and_Category.Controllers
 
         public CategoryController() { }
 
-        //  DataManager db = new DataManager();
-
         // GET: Category
+
         [AllowAnonymous]
         public async Task<ActionResult> GetCategoryIndex(int? page)
         {
