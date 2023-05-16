@@ -1,0 +1,76 @@
+﻿using CRUD_CoreWebAPI.Database;
+using CRUD_CoreWebAPI.Models;
+using CRUD_CoreWebAPI.Repository.IRepo;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+
+namespace CRUD_CoreWebAPI.Repository.Repo
+{
+    public class ProductRepo : IProductRepo
+    {
+        private readonly DataManager _dataManager;
+
+        public ProductRepo(DataManager dataManager)
+        {
+            _dataManager = dataManager;
+        }
+        public async Task<bool> CreateProduct( Product product)
+        {
+           if(product != null)
+            {
+                _dataManager.products.Add(product);
+              await  _dataManager.SaveChangesAsync();
+                return true;
+            }
+           return false;
+        }
+
+        public Task DeleteProduct(int ProductId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Product> DeleteProductDetails(int ProductId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> EditProduct(int ProductId, Product product)
+        {
+            var data=await _dataManager.products.FirstOrDefaultAsync(x => x.ProductId == ProductId);
+            if(data != null)
+            {
+                _dataManager.Entry(data).CurrentValues.SetValues(product);
+                await _dataManager.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
+        public Task<Product> EditProductDetails(int ProductId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<Product>> GetProductIndex(int? CategoryId, int? page)
+        {
+            int pageNumber = page ?? 1;
+            int pageSize = 3;
+            var products = await _dataManager.products.FromSqlRaw("EXEC sp_getProductDataWithPageSize @PageNo, @PageSize, @CategoryId",
+                new SqlParameter("@PageNo", pageNumber),
+                new SqlParameter("@PageSize", pageSize),
+                new SqlParameter("@CategoryId", CategoryId)).ToListAsync();
+            return products;
+        }
+
+        public Task<int> ProductCount(int? CategoryId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Product> ProductDetails(int? ProductId)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
