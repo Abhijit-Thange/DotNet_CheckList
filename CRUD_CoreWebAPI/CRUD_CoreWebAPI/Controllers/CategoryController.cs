@@ -1,6 +1,7 @@
 ﻿using CRUD_CoreWebAPI.Models;
 using CRUD_CoreWebAPI.Services.IService;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD_CoreWebAPI.Controllers
@@ -59,6 +60,17 @@ namespace CRUD_CoreWebAPI.Controllers
        public async Task<Category> CategoryDetails([FromRoute]int CategoryId)
         {
             return await _categories.CategoryDetails(CategoryId);
+        }
+
+        [HttpPatch("{CategoryId}")]
+        public async Task<string> UpdateCategoryPatch([FromRoute] int CategoryId, [FromBody] JsonPatchDocument category)
+        {
+            if (ModelState.IsValid)
+            {
+                var pudate = await _categories.UpdateCategoryPatchAsync(CategoryId, category);
+                if (pudate) return "Data Update By Patch";
+            }
+            return "not Updated";
         }
     }
 }

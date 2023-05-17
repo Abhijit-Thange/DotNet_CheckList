@@ -1,4 +1,5 @@
 ﻿using CRUD_CoreWebAPI.Models;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace CRUD_CoreWebAPI.Services.IService
 {
@@ -8,8 +9,8 @@ namespace CRUD_CoreWebAPI.Services.IService
         Task<Product> ProductDetails(int? ProductId);
         Task<bool> CreateProduct(Product product);
         Task<Product> DeleteProductDetails(int ProductId);
-        Task DeleteProduct(int ProductId);
-        Task<Product> EditProductDetails(int ProductId);
+        Task<bool> DeleteProduct(int ProductId);
+        Task<bool> UpdateProductPatch(int ProductId,JsonPatchDocument product);
         Task<bool> EditProduct(int ProductId, Product product);
         Task<int> ProductCount(int? CategoryId);
     }

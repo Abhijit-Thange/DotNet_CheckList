@@ -11,5 +11,8 @@ namespace CRUD_CoreWebAPI.Database
         public DbSet<Category> categories { get; set; }
 
         public DbSet<Product> products { get; set; }
+
+        // public DbSet<Report> reports { get; set; }
+
     }
 }

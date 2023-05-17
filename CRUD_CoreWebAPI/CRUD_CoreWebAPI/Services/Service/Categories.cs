@@ -1,6 +1,7 @@
 ﻿using CRUD_CoreWebAPI.Models;
 using CRUD_CoreWebAPI.Repository.IRepo;
 using CRUD_CoreWebAPI.Services.IService;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD_CoreWebAPI.Services.Service
@@ -36,6 +37,11 @@ namespace CRUD_CoreWebAPI.Services.Service
         public async Task<Category> CategoryDetails(int CategoryId)
         {
             return await _categoryRepo.CategoryDetails(CategoryId);
+        }
+
+        public async Task<bool> UpdateCategoryPatchAsync(int CategoryId, JsonPatchDocument category)
+        {
+            return await _categoryRepo.UpdateCategoryPatchAsync(CategoryId, category);
         }
     }
 }

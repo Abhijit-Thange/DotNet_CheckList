@@ -1,6 +1,7 @@
 ﻿using CRUD_CoreWebAPI.Models;
 using CRUD_CoreWebAPI.Repository.IRepo;
 using CRUD_CoreWebAPI.Services.IService;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace CRUD_CoreWebAPI.Services.Service
 {
@@ -17,9 +18,9 @@ namespace CRUD_CoreWebAPI.Services.Service
             return await _productRepo.CreateProduct(product);
         }
 
-        public Task DeleteProduct(int ProductId)
+        public async Task<bool> DeleteProduct(int ProductId)
         {
-            throw new NotImplementedException();
+            return await _productRepo.DeleteProduct(ProductId);
         }
 
         public Task<Product> DeleteProductDetails(int ProductId)
@@ -27,14 +28,15 @@ namespace CRUD_CoreWebAPI.Services.Service
             throw new NotImplementedException();
         }
 
-        public Task<bool> EditProduct(int ProductId, Product product)
+        public async Task<bool> EditProduct(int ProductId, Product product)
         {
-            throw new NotImplementedException();
+            return await _productRepo.EditProduct(ProductId, product);
+
         }
 
-        public Task<Product> EditProductDetails(int ProductId)
+        public async Task<bool> UpdateProductPatch(int ProductId,JsonPatchDocument product)
         {
-            throw new NotImplementedException();
+            return await _productRepo.UpdateProductPatch(ProductId, product);
         }
 
         public Task<List<Product>> GetProductIndex(int? CategoryId, int? page)
@@ -47,9 +49,9 @@ namespace CRUD_CoreWebAPI.Services.Service
             throw new NotImplementedException();
         }
 
-        public Task<Product> ProductDetails(int? ProductId)
+        public async Task<Product> ProductDetails(int? ProductId)
         {
-            throw new NotImplementedException();
+            return await _productRepo.ProductDetails(ProductId);
         }
     }
 }

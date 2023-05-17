@@ -16,11 +16,13 @@ namespace CRUD_CoreWebAPI
 
             // Add services to the container.
             builder.Services.AddDbContext<DataManager>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DataManager")));
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddNewtonsoftJson();
             builder.Services.AddTransient<ICategories , Categories>();
             builder.Services.AddTransient<ICategoryRepo, CategoryRepo>();
             builder.Services.AddTransient<IProductService, ProductService>();
             builder.Services.AddTransient<IProductRepo, ProductRepo>();
+            builder.Services.AddTransient<IReportService, ReportService>();
+            builder.Services.AddTransient<IReportRepo, ReportRepo>();
 
 
 

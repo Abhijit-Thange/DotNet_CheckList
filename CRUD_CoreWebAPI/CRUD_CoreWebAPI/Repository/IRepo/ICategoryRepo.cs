@@ -1,4 +1,5 @@
 ﻿using CRUD_CoreWebAPI.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD_CoreWebAPI.Repository.IRepo
@@ -14,5 +15,7 @@ namespace CRUD_CoreWebAPI.Repository.IRepo
         Task<bool> DeleteCategory(int CategoryId);
 
         Task<Category> CategoryDetails(int CategoryId);
+
+        Task<bool> UpdateCategoryPatchAsync(int CategoryId, JsonPatchDocument category);
     }
 }

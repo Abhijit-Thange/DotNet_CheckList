@@ -1,6 +1,7 @@
 ﻿using CRUD_CoreWebAPI.Database;
 using CRUD_CoreWebAPI.Models;
 using CRUD_CoreWebAPI.Repository.IRepo;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,7 +31,7 @@ namespace CRUD_CoreWebAPI.Repository.Repo
             var data= await _dataManager.categories.FirstOrDefaultAsync(c=>c.CategoryId==CategoryId);
             if (data != null)
             {
-                 _dataManager.categories.Remove(data);
+               var n =  _dataManager.categories.Remove(data);
                 await _dataManager.SaveChangesAsync();
                 return true;
             }
@@ -58,5 +59,19 @@ namespace CRUD_CoreWebAPI.Repository.Repo
         {
             return await _dataManager.categories.FirstOrDefaultAsync(c => c.CategoryId == CategoryId);
         }
+
+        public async Task<bool> UpdateCategoryPatchAsync(int CategoryId, JsonPatchDocument category)
+        {
+            var data = await _dataManager.categories.FirstOrDefaultAsync(c => c.CategoryId == CategoryId);
+            if (data != null)
+            {
+                category.ApplyTo(data);
+                await _dataManager.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
+
     }
 }

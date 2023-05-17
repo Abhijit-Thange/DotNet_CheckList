@@ -1,6 +1,8 @@
 ﻿using CRUD_CoreWebAPI.Database;
 using CRUD_CoreWebAPI.Models;
 using CRUD_CoreWebAPI.Repository.IRepo;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,20 +21,22 @@ namespace CRUD_CoreWebAPI.Repository.Repo
            if(product != null)
             {
                 _dataManager.products.Add(product);
-              await  _dataManager.SaveChangesAsync();
+                await  _dataManager.SaveChangesAsync();
                 return true;
             }
            return false;
         }
 
-        public Task DeleteProduct(int ProductId)
+        public async Task<bool> DeleteProduct(int ProductId)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Product> DeleteProductDetails(int ProductId)
-        {
-            throw new NotImplementedException();
+           var data= await _dataManager.products.FirstOrDefaultAsync(p=>p.ProductId==ProductId);
+            if(data != null)
+            {
+                _dataManager.products.Remove(data);
+                await  _dataManager.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
 
         public async Task<bool> EditProduct(int ProductId, Product product)
@@ -40,16 +44,23 @@ namespace CRUD_CoreWebAPI.Repository.Repo
             var data=await _dataManager.products.FirstOrDefaultAsync(x => x.ProductId == ProductId);
             if(data != null)
             {
-                _dataManager.Entry(data).CurrentValues.SetValues(product);
-                await _dataManager.SaveChangesAsync();
+               _dataManager.Entry(data).CurrentValues.SetValues(product);
+              var n=  await _dataManager.SaveChangesAsync();
                 return true;
             }
             return false;
         }
 
-        public Task<Product> EditProductDetails(int ProductId)
+        public async Task<bool> UpdateProductPatch(int ProductId, JsonPatchDocument product)
         {
-            throw new NotImplementedException();
+            var data= await _dataManager.products.FirstOrDefaultAsync(p=>p.ProductId == ProductId);
+            if(data != null)
+            {
+                product.ApplyTo(data);
+                await _dataManager.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
 
         public async Task<List<Product>> GetProductIndex(int? CategoryId, int? page)
@@ -63,12 +74,12 @@ namespace CRUD_CoreWebAPI.Repository.Repo
             return products;
         }
 
-        public Task<int> ProductCount(int? CategoryId)
+        public async Task<Product> ProductDetails(int? ProductId)
         {
-            throw new NotImplementedException();
+            return await _dataManager.products.FirstOrDefaultAsync(p => p.ProductId == ProductId);
         }
 
-        public Task<Product> ProductDetails(int? ProductId)
+        public Task<int> ProductCount(int? CategoryId)
         {
             throw new NotImplementedException();
         }
