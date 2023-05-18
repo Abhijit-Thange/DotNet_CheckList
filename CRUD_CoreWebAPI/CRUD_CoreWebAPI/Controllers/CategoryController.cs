@@ -1,5 +1,6 @@
 ﻿using CRUD_CoreWebAPI.Models;
 using CRUD_CoreWebAPI.Services.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -18,13 +19,15 @@ namespace CRUD_CoreWebAPI.Controllers
         }
 
         [HttpGet]
-       public async Task<List<Category>> GetCategories()
+        [Authorize]
+        public async Task<List<Category>> GetCategories()
         {
            var data= await _categories.GetAllCategories();
             return data;
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<string> AddCategory([FromBody]Category category) 
         {
             if(ModelState.IsValid)
@@ -37,7 +40,8 @@ namespace CRUD_CoreWebAPI.Controllers
         }
 
         [HttpPut("{CategoryId}")]
-       public async Task<string> UpdateCategory([FromRoute]int CategoryId,[FromBody] Category category)
+        [Authorize(Roles = "Admin")]
+        public async Task<string> UpdateCategory([FromRoute]int CategoryId,[FromBody] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +61,8 @@ namespace CRUD_CoreWebAPI.Controllers
         }
 
         [HttpGet("{CategoryId}")]
-       public async Task<Category> CategoryDetails([FromRoute]int CategoryId)
+        [Authorize(Roles = "Admin")]
+        public async Task<Category> CategoryDetails([FromRoute]int CategoryId)
         {
             return await _categories.CategoryDetails(CategoryId);
         }

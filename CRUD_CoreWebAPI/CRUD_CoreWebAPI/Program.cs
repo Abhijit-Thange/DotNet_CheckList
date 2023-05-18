@@ -4,7 +4,12 @@ using CRUD_CoreWebAPI.Repository.IRepo;
 using CRUD_CoreWebAPI.Repository.Repo;
 using CRUD_CoreWebAPI.Services.IService;
 using CRUD_CoreWebAPI.Services.Service;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace CRUD_CoreWebAPI
 {
@@ -16,6 +21,28 @@ namespace CRUD_CoreWebAPI
 
             // Add services to the container.
             builder.Services.AddDbContext<DataManager>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DataManager")));
+            builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<DataManager>()
+                .AddDefaultTokenProviders();
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(option => {
+                    option.SaveToken = true;
+                    option.RequireHttpsMetadata = true;
+                    option.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                    {
+                        ValidateAudience = true,
+                        ValidateIssuer = true,
+                        ValidAudience = builder.Configuration["Jwt:ValidAudiance"],
+                        ValidIssuer = builder.Configuration["Jwt:ValidIssuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"]))
+                    };
+                });
+            
             builder.Services.AddControllers().AddNewtonsoftJson();
             builder.Services.AddTransient<ICategories , Categories>();
             builder.Services.AddTransient<ICategoryRepo, CategoryRepo>();
@@ -23,6 +50,8 @@ namespace CRUD_CoreWebAPI
             builder.Services.AddTransient<IProductRepo, ProductRepo>();
             builder.Services.AddTransient<IReportService, ReportService>();
             builder.Services.AddTransient<IReportRepo, ReportRepo>();
+            builder.Services.AddTransient<IAccountService, AccountService>();
+            builder.Services.AddTransient<IAccountRepo, AccountRepo>();
 
 
 
@@ -40,7 +69,7 @@ namespace CRUD_CoreWebAPI
             }
 
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

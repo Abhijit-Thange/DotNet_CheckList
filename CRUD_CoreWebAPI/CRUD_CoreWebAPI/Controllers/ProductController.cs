@@ -1,8 +1,10 @@
 ﻿using CRUD_CoreWebAPI.Models;
 using CRUD_CoreWebAPI.Services.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace CRUD_CoreWebAPI.Controllers
 {
@@ -24,6 +26,7 @@ namespace CRUD_CoreWebAPI.Controllers
         }
 
         [HttpPost("")]
+        [Authorize(Roles = "Admin")]
         public async Task<string> AddProduct( [FromBody]Product product)
         {
             if(ModelState.IsValid)
@@ -38,6 +41,7 @@ namespace CRUD_CoreWebAPI.Controllers
         }
 
         [HttpPut("update/{ProductId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<string> UpdateProduct([FromRoute] int ProductId, [FromBody] Product product)
         {
             if(ModelState.IsValid)
@@ -50,6 +54,7 @@ namespace CRUD_CoreWebAPI.Controllers
         }
 
         [HttpDelete("delete/{ProductId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<string> DeleteProduct([FromRoute] int ProductId)
         {
             var delete= await _product.DeleteProduct(ProductId);
