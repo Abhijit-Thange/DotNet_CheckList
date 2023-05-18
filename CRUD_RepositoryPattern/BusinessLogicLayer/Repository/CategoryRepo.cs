@@ -52,6 +52,7 @@ namespace BusinessLogicLayer.Repository
         public async Task<Category> DeleteCategoryDetails(int CategoryId)
         {
             return await db.Categories.FirstOrDefaultAsync(c => c.CategoryId == CategoryId);
+
         }
 
         public async Task<bool> EditCategory(int CategoryId, Category category)

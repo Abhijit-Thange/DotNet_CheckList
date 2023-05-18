@@ -64,8 +64,13 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(product);
         }
 
-        public ActionResult AddProduct(int CategoryId)
+        public  ActionResult AddProduct(int CategoryId)
         {
+            var categories = _ProductService.GetCategoryList();
+            var selectList = new SelectList(categories as IEnumerable<Category>, "CategoryId", "CategoryName");
+
+            ViewBag.Categories = selectList;
+
             ViewBag.CategoryId = CategoryId;
             return View();
         }

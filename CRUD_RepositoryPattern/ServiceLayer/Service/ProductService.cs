@@ -75,5 +75,10 @@ namespace ServiceLayer.Service
         {
             return _ProductDetails.ProductDetails(ProductId);
         }
+
+        public List<Category> GetCategoryList()
+        {
+            return _CreateProduct.GetCategoryList();
+        }
     }
 }

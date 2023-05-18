@@ -78,5 +78,10 @@ namespace BusinessLogicLayer.Repository
             Product product = await db.Products.FirstOrDefaultAsync(a => a.ProductId == ProductId);
             return product;
         }
+
+        public List<Category> GetCategoryList()
+        {
+            return db.Categories.ToList();
+        }
     }
 }

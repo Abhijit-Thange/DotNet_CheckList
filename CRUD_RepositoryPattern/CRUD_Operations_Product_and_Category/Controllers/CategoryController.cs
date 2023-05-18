@@ -82,7 +82,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [Route("update-Category")]
+        [Route("update.Category")]
         public async Task<ActionResult> EditCategory(int CategoryId)
         {
             Category category = await _CategoryService.EditCategoryDetails(CategoryId);
@@ -91,7 +91,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
         }
 
 
-        [Route("update-Category")]
+        [Route("update.Category")]
         [HttpPost]
         public async Task<ActionResult> EditCategory(int CategoryId, Category category)
         {
@@ -107,7 +107,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [Route("~/delete-category/{CategoryID}")]
+        [Route("~/delete.category/{CategoryID}")]
 
         public async Task<ActionResult> DeleteCategory(int CategoryId)
         {

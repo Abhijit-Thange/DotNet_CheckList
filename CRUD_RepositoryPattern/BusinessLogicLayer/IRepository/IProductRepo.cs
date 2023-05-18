@@ -18,5 +18,6 @@ namespace BusinessLogicLayer.IRepository
         Task<Product> EditProductDetails(int ProductId);
         Task<bool> EditProduct(int ProductId, Product product);
         Task<int> ProductCount(int? CategoryId);
+        List<Category> GetCategoryList();
     }
 }
