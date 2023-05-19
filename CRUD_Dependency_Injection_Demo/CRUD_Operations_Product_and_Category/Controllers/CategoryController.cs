@@ -34,6 +34,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
 
         public CategoryController(IGetCategoryIndex GetCategoryIndex, ICategoryDetails CategoryDetails,
                                   ICreateCategory CreateCategory, IUpdateCategory EditCategory,
+                                
                                   IDeleteCategory DeleteCategory, IActivateCategory ActivateCategory,
                                    IDeactivateCategory DeactivateCategory) 
         {

@@ -5,7 +5,8 @@ using System.Web;
 
 namespace CRUD_Operations_Product_and_Category.BusinessLogicLayer.AccountBusinessLogic
 {
-    public class LoginRepo
+    public class LoginRepository : ILoginRepository
     {
+
     }
 }

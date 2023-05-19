@@ -183,7 +183,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
-    <Compile Include="BusinessLogicLayer\AccountBusinessLogic\LoginRepo.cs" />
+    <Compile Include="BusinessLogicLayer\AccountBusinessLogic\ILoginRepository.cs" />
+    <Compile Include="BusinessLogicLayer\AccountBusinessLogic\LoginRepository.cs" />
     <Compile Include="BusinessLogicLayer\AccountBusinessLogic\LogoutRepo.cs" />
     <Compile Include="BusinessLogicLayer\AccountBusinessLogic\SignupRepo.cs" />
     <Compile Include="BusinessLogicLayer\CategoryBusinessLogic\ActivateCategoryRepo.cs" />
@@ -236,7 +237,6 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Report.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceLayer\AccountService\ILogin.cs" />
     <Compile Include="ServiceLayer\AccountService\ILogout.cs" />
     <Compile Include="ServiceLayer\AccountService\ISignup.cs" />
     <Compile Include="ServiceLayer\CategoryService\IActivateCategory.cs" />
