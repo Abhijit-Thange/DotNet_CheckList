@@ -1,5 +1,8 @@
-﻿namespace CRUD_CoreWebAPI.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace CRUD_CoreWebAPI.Models
 {
+    [Keyless]
     public class Report
     {
         public string ProductName { get; set; }

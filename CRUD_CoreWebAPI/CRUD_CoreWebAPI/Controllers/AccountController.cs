@@ -26,7 +26,7 @@ namespace CRUD_CoreWebAPI.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(User user)
+        public async Task<IActionResult> Login([FromBody]User user)
         {
             var token=await _accountService.Login(user);
             if (string.IsNullOrEmpty(token)) 

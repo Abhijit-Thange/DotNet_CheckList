@@ -15,5 +15,7 @@ namespace CRUD_CoreWebAPI.Database
 
         public DbSet<User> users { get; set; }
 
+        public DbSet<Report> Report { get; set; }
+
     }
 }

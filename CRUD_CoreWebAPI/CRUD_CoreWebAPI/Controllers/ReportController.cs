@@ -19,7 +19,8 @@ namespace CRUD_CoreWebAPI.Controllers
         [HttpGet("{page}")]
         public async Task<List<Report>> GetProductReports([FromRoute]int? page)
         {
-            return await _reportService.GetReport(page);
+            var product= await _reportService.GetReport(page);
+            return product;
         }
     }
 }
