@@ -57,12 +57,13 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(category);
         }
 
-        [Authorize(Roles = "Admin, Hr")]
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateCategory()
         {
             return View();
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> CreateCategory(Category category)
         {
@@ -76,7 +77,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(category);
         }
 
-        [Authorize(Roles = "Owner")]
+        [Authorize(Roles = "Admin")]
         [Route("update-Category")]
         public async Task<ActionResult> EditCategory(int CategoryId)
         {
@@ -86,7 +87,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(category);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [Route("update-Category")]
         [HttpPost]
         public async Task<ActionResult> EditCategory(int CategoryId,Category category)
@@ -105,7 +106,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(category);
         }
 
-        [Authorize(Roles = "Owner")]
+        [Authorize(Roles = "Admin")]
         [Route("~/delete-category/{CategoryID}")]
 
         public async Task<ActionResult> DeleteCategory(int CategoryId)
@@ -115,6 +116,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(category);
         }
 
+        [Authorize(Roles = "Admin")]
         [Route("~/delete-category/{CategoryId}")]
         [HttpPost, ActionName("DeleteCategory")]
         public async Task<ActionResult> Delete(int CategoryId)
@@ -125,6 +127,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return RedirectToAction("GetCategoryIndex");
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> ActivateCategory(int CategoryId, int page)
         {
             var category =await db.Categories.FirstOrDefaultAsync(c=>c.CategoryId== CategoryId);
@@ -133,6 +136,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return RedirectToAction("GetCategoryIndex",new RouteValueDictionary(new {page = page}));
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeactivateCategory(int CategoryId, int page)
         {
             var category =await db.Categories.FirstOrDefaultAsync(c=> c.CategoryId== CategoryId);

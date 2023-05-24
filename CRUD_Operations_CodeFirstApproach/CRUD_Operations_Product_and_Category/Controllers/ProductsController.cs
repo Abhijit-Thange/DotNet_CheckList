@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using CRUD_Operations_Product_and_Category.DAL;
 using CRUD_Operations_Product_and_Category.Models;
 using System.Web.Routing;
-using System.Security.Cryptography;
 using System.Data.SqlClient;
-using System.Web.UI;
 
 namespace CRUD_Operations_Product_and_Category.Controllers
 {
@@ -21,6 +16,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
          DataManager db = new DataManager();
 
         // GET: Products
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> GetProductIndex(int? CategoryId, int? page)
         {
             ViewBag.CategoryId = CategoryId;
@@ -43,12 +39,17 @@ namespace CRUD_Operations_Product_and_Category.Controllers
 
                 ViewBag.TotalPage = totalPages;
 
-              //  var product = await db.Products.Where(x => x.CategoryId == id).ToListAsync();
+                var Categories = db.Categories.ToList();
+                var selectList = new SelectList(Categories, "CategoryId", "CategoryName");
+
+                ViewBag.Categories = selectList;
+
                 return View(products);
             }
             return View(TempData["BetweenDate"]);  
             
         }
+
 
         public async Task<ActionResult> ProductDetails(int? ProductId)
         {
@@ -61,12 +62,18 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(product);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult AddProduct(int CategoryId)
         {
+            var Categories=db.Categories.ToList();
+            var selectList = new SelectList(Categories, "CategoryId", "CategoryName");
+
+            ViewBag.Categories = selectList;
             ViewBag.CategoryId = CategoryId;
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> AddProduct(Product product)
         {
@@ -79,12 +86,14 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(product);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> EditProductInfo(int ProductId)
         {
             var product = await db.Products.FirstOrDefaultAsync(x => x.ProductId == ProductId);
             return View(product);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> EditProductInfo(int ProductId,Product products)
         {
@@ -104,12 +113,14 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             return View(products);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteProduct(int ProductId)
         {
             Product product = await db.Products.FirstOrDefaultAsync(x=>x.ProductId == ProductId);
             return View(product);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("DeleteProduct")]
         public async Task<ActionResult> Delete(int ProductId, Product pro)
         {

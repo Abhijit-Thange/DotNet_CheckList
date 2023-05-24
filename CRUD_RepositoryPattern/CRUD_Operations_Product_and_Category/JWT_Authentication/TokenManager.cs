@@ -28,7 +28,7 @@ namespace CRUD_Operations_Product_and_Category.JWT_Authentication
             {
                 Subject = new ClaimsIdentity(claims: new[] { new Claim(type: ClaimTypes.Name, value: user.UserName), 
                                                             new Claim(type: ClaimTypes.Role, value: user.UserRole)}),
-                Expires = DateTime.Now.AddMinutes(15),
+                Expires = DateTime.Now.AddMinutes(1),
                 SigningCredentials = new SigningCredentials(securityKey, algorithm: SecurityAlgorithms.HmacSha256),
                 Issuer = "https://localhost:44345/",
                 Audience= "https://localhost:44345/"

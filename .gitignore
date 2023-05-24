@@ -6,3 +6,15 @@ obj/
 *.log
 App.Config
 App_Data/
+*.config
+*.vsidx
+*.sln
+*.csproj
+*.asax
+*.ico
+WeatherForecast.cs
+*.json
+*.resx
+Migrations/
+Properties/
+.vs/

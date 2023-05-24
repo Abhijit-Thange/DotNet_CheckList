@@ -3,9 +3,21 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<form method="get" action="/products/getproductindex">
+    <div class="form-group">
+        @Html.Label("Select CategoryName", htmlAttributes: new { @class = "control-label col-md-2", style = "color:blue" })
+        <div class="col-md-10">
+            @Html.DropDownList("CategoryId", ViewBag.Categories as SelectList, "-Select-Category-")
+            @Html.ValidationMessage("CategoryId", "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div>
+        <button type="submit" class="btn btn-primary">Products</button>
+    </div>
+</form>
+<hr />
 <h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "AddProduct", null, new { CategoryId = ViewBag.CategoryId }, new { @class = "btn btn-outline-success" })
 </p>

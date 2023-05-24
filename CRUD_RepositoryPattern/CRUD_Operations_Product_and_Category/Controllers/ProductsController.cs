@@ -46,7 +46,10 @@ namespace CRUD_Operations_Product_and_Category.Controllers
 
                 ViewBag.TotalPage = totalPages;
 
-              //  var product = await db.Products.Where(x => x.CategoryId == id).ToListAsync();
+                var categories = _ProductService.GetCategoryList();
+                var selectList = new SelectList(categories as IEnumerable<Category>, "CategoryId", "CategoryName");
+
+                ViewBag.Categories = selectList;
                 return View(products);
             }
             return View(TempData["BetweenDate"]);  
@@ -70,7 +73,6 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             var selectList = new SelectList(categories as IEnumerable<Category>, "CategoryId", "CategoryName");
 
             ViewBag.Categories = selectList;
-
             ViewBag.CategoryId = CategoryId;
             return View();
         }
