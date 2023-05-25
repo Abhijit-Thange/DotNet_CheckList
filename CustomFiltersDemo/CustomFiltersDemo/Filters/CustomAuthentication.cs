@@ -18,6 +18,7 @@ namespace CustomFiltersDemo.Filters
             }
         }
 
+
         public void OnAuthenticationChallenge(AuthenticationChallengeContext filterContext)
         {
              if(filterContext == null || filterContext.Result is  HttpUnauthorizedResult)
