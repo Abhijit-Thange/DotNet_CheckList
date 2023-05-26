@@ -13,5 +13,9 @@ namespace ServiceLayer.IServices
 
         Task<List<Category>> GetCategoryAsync();
         Task<bool> UpdateCategoryAsync(int CategoryId,Category category);
+        Task<Category> UpdateCategoryDetailsAsync(int CategoryId);
+
+        Task<bool> DeleteCategoryAsync(int CategoryId);
+        Task<Category> DeleteCategoryDetailsAsync(int CategoryId);
     }
 }

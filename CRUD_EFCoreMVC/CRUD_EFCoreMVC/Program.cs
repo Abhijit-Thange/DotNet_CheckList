@@ -23,6 +23,10 @@ namespace CRUD_EFCoreMVC
             builder.Services.AddTransient<ICategoryService, CategoryService>();
             builder.Services.AddTransient<ICategoryRepo, CategoryRepo>();
 
+            builder.Services.AddTransient<IProductService, ProductService>();
+            builder.Services.AddTransient<IProductRepo, ProductRepo>();
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

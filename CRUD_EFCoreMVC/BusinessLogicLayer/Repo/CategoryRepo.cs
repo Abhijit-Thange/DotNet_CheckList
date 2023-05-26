@@ -28,6 +28,23 @@ namespace BusinessLogicLayer.Repo
 
         }
 
+        public async Task<bool> DeleteCategoryAsync(int CategoryId)
+        {
+            var data = await _dataManager.categories.FirstOrDefaultAsync(c => c.CategoryId == CategoryId);
+            if(data!=null)
+            {
+                _dataManager.categories.Remove(data);
+                await _dataManager.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<Category> DeleteCategoryDetailsAsync(int CategoryId)
+        {
+            return await _dataManager.categories.FirstOrDefaultAsync(c => c.CategoryId == CategoryId);
+        }
+
         public async Task<List<Category>> GetCategoryAsync()
         {
             var data = await _dataManager.categories.ToListAsync();
@@ -44,6 +61,11 @@ namespace BusinessLogicLayer.Repo
                 return true;
             }
             return false;
+        }
+
+        public async Task<Category> UpdateCategoryDetailsAsync(int CategoryId)
+        {
+            return await _dataManager.categories.FirstOrDefaultAsync(c => c.CategoryId == CategoryId);
         }
     }
 }

@@ -23,14 +23,29 @@ namespace ServiceLayer.Service
             return await _categoryRepo.AddCategoryAsync(category);
         }
 
+        public async Task<bool> DeleteCategoryAsync(int CategoryId)
+        {
+            return await _categoryRepo.DeleteCategoryAsync(CategoryId);
+        }
+
+        public async Task<Category> DeleteCategoryDetailsAsync(int CategoryId)
+        {
+           return await _categoryRepo.DeleteCategoryDetailsAsync(CategoryId);
+        }
+
         public async Task<List<Category>> GetCategoryAsync()
         {
           return await _categoryRepo.GetCategoryAsync();
         }
 
-        public Task<bool> UpdateCategoryAsync(int CategoryId, Category category)
+        public async Task<bool> UpdateCategoryAsync(int CategoryId, Category category)
         {
-            throw new NotImplementedException();
+            return await _categoryRepo.UpdateCategoryAsync(CategoryId, category);
+        }
+
+        public async Task<Category> UpdateCategoryDetailsAsync(int CategoryId)
+        {
+            return await _categoryRepo.UpdateCategoryDetailsAsync(CategoryId);
         }
     }
 }

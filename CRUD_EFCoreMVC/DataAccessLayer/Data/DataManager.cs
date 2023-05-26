@@ -20,3 +20,4 @@ namespace DataAccessLayer.Data
         public DbSet<Product> products { get; set; }
     }
 }
+
