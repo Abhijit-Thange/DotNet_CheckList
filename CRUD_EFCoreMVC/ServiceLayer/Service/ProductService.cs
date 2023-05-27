@@ -26,32 +26,32 @@ namespace ServiceLayer.Service
             return await _productRepo.GetCategoriesAsync();
         }
 
-        /*   public Task<bool> DeleteProductAsync(int ProductId)
+        public async Task<List<Product>> GetProductAsync(int? CategoryId, int? pageNumber)
+        {
+            return await _productRepo.GetProductAsync(CategoryId, pageNumber);
+        }
+
+           public async Task<bool> DeleteProductAsync(int ProductId)
            {
-               throw new NotImplementedException();
+               return await _productRepo.DeleteProductAsync(ProductId);
            }
 
-           public Task<Product> DeleteProductDetailsAsync(int ProductId)
+           public async Task<Product> DeleteProductDetailsAsync(int ProductId)
            {
-               throw new NotImplementedException();
+               return await _productRepo.DeleteProductDetailsAsync(ProductId);
            }
 
-           public async Task<List<Product>> GetProductAsync(int? CategoryId, int? pageNumber)
+           public async Task<bool> UpdateProductAsync(int ProductId, Product product)
            {
-               return await _productRepo.GetProductAsync(CategoryId, pageNumber);
+               return await _productRepo.UpdateProductAsync(ProductId, product);
            }
 
-           public Task<bool> UpdateProductAsync(int CategoryId, Product product)
+           public async Task<Product> UpdateProductDetailsAsync(int ProductId)
            {
-               throw new NotImplementedException();
+               return await _productRepo.UpdateProductDetailsAsync(ProductId);
            }
 
-           public Task<Product> UpdateProductDetailsAsync(int ProductId)
-           {
-               throw new NotImplementedException();
-           }
-
-          public async Task<int> ProductCountAsync(int? CategoryId)
+       /*   public async Task<int> ProductCountAsync(int? CategoryId)
            {
                return await _productRepo.ProductCountAsync(CategoryId);
            }*/

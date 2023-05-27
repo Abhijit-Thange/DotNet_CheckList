@@ -24,7 +24,7 @@
             <tr>
                 <td scope="row">@item.CategoryName</td>    
                 <td>
-                    <a class="btn btn-outline-success" href="@Url.Action("AddProduct", "Product")">AddProduct  </a>
+                    <a class="btn btn-outline-success" href="@Url.Action("AddProduct", "Product",new { CategoryId = item.CategoryId })">AddProduct  </a>
                     @Html.ActionLink("Edit  ", "EditCategoryDetails", new { CategoryId = item.CategoryId }, new { @class = "btn btn-outline-warning" })
                     @Html.ActionLink("Details  ", "CategoryDetails", new { CategoryId = item.CategoryId }, new { @class = "btn btn-outline-info" })
                     @Html.ActionLink("Delete  ", "DeleteCategoryDetails", new { CategoryId = item.CategoryId }, new { @class = "btn btn-outline-danger" })

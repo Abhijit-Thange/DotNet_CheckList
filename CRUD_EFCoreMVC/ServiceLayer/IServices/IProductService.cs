@@ -13,13 +13,13 @@ namespace ServiceLayer.IServices
 
         Task<List<Category>> GetAllCategoriesAsync();
 
-     /*   Task<List<Product>> GetProductAsync(int? CategoryId, int? pageNumber);
+         Task<List<Product>> GetProductAsync(int? CategoryId, int? pageNumber);
         Task<bool> UpdateProductAsync(int CategoryId, Product category);
         Task<Product> UpdateProductDetailsAsync(int CategoryId);
 
         Task<bool> DeleteProductAsync(int CategoryId);
         Task<Product> DeleteProductDetailsAsync(int CategoryId);
-        Task<int> ProductCountAsync(int? CategoryId);
+      /*  Task<int> ProductCountAsync(int? CategoryId);
      */
     }
 }

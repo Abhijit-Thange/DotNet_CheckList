@@ -13,12 +13,12 @@ namespace BusinessLogicLayer.IRepo
 
         Task<List<Category>> GetCategoriesAsync();
 
-     /*   Task<List<Product>> GetProductAsync(int? CategoryId, int? pageNumber);
+        Task<List<Product>> GetProductAsync(int? CategoryId, int? pageNumber);
         Task<bool> UpdateProductAsync(int ProductId, Product product);
         Task<Product> UpdateProductDetailsAsync(int ProductId);
         Task<bool> DeleteProductAsync(int ProductId);
         Task<Product> DeleteProductDetailsAsync(int ProductId);
-        Task<int> ProductCountAsync(int? CategoryId);
+     /*   Task<int> ProductCountAsync(int? CategoryId);
      */
     }
 }

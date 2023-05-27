@@ -18,6 +18,8 @@ namespace CRUD_EFCoreMVC
             builder.Services.AddDbContext<DataManager>(options => options.UseSqlServer
             (builder.Configuration.GetConnectionString("DataManager"), b => b.MigrationsAssembly("CRUD_EFCoreMVC")));
 
+
+
             builder.Services.AddControllers();
 
             builder.Services.AddTransient<ICategoryService, CategoryService>();

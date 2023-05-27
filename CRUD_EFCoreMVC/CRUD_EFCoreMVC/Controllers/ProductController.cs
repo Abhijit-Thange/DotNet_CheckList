@@ -14,13 +14,13 @@ namespace CRUD_EFCoreMVC.Controllers
             _productService = productService;
         }
 
-        /*   public async Task<IActionResult> ProductIndex(int? CategoryId, int? page)
+           public async Task<IActionResult> ProductIndex(int? CategoryId, int? page)
            {
                int pageNumber = page ?? 1;
                int pageSize = 3;
                var products = await _productService.GetProductAsync(CategoryId, pageNumber);
-
-               var totalRecord = await _productService.ProductCountAsync(CategoryId);
+            var totalRecord = 10;
+              // var totalRecord = await _productService.ProductCountAsync(CategoryId);
                int findPages = (totalRecord / pageSize);
                var totalPages = 0;
                if ((totalRecord % pageSize) == 0)
@@ -30,38 +30,44 @@ namespace CRUD_EFCoreMVC.Controllers
 
                ViewBag.TotalPage = totalPages;
 
-              // var categories = _productService.GetProductList();
-              // var selectList = new SelectList(categories as IEnumerable<Category>, "CategoryId", "CategoryName");
+            var categories = await _productService.GetAllCategoriesAsync();
 
-             //  ViewBag.Categories = selectList;
-               return View(products);
-           }*/
+            var selectList = new SelectList(categories as IEnumerable<Category>, "CategoryId", "CategoryName");
+
+            ViewBag.Categories = selectList;
+            return View(products);
+           }
 
         [Route("add")]
-        public IActionResult AddProduct()
+        public async Task<IActionResult> AddProduct(int? CategoryId)
         {
-            var categories = _productService.GetAllCategoriesAsync();
-          //  var selectList = new SelectList(categories as IEnumerable<Category>, "CategoryId", "CategoryName");
+            var categories = await _productService.GetAllCategoriesAsync();
 
-          //  ViewBag.Categories = selectList;
+            var selectList = new SelectList(categories as IEnumerable<Category>, "CategoryId", "CategoryName");
+
+            ViewBag.Categories = selectList;
+            ViewBag.CategoryId = CategoryId;
             return View();
         }
 
+        [Route("add")]
         [HttpPost]
-        public async Task<IActionResult> AddProduct(Product category)
+        public async Task<IActionResult> AddProduct(Product product)
         {
+           // var c = await _productService.AddProductAsync(product);
             if (ModelState.IsValid)
             {
-                var c = await _productService.AddProductAsync(category);
+                var c = await _productService.AddProductAsync(product);
+
                 if (c)
-                    return RedirectToAction("Index", "Product",category.CategoryId);
+                    return RedirectToAction("ProductIndex", "Product", product.CategoryId);
             }
             return View();
         }
-/*
-        public async Task<IActionResult> EditCategoryDetails(int CategoryId)
+
+        public async Task<IActionResult> EditProductDetails(int ProductId)
         {
-            var data = await _productService.UpdateProductDetailsAsync(CategoryId);
+            var data = await _productService.UpdateProductDetailsAsync(ProductId);
             if (data != null)
             {
                 return View(data);
@@ -71,34 +77,36 @@ namespace CRUD_EFCoreMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditCategory(int CategoryId, Product category)
+        public async Task<IActionResult> EditProduct(int ProductId, Product product)
         {
             if (ModelState.IsValid)
             {
-                var data = await _productService.UpdateProductAsync(CategoryId, category);
+                var data = await _productService.UpdateProductAsync(ProductId, product);
                 if (data)
-                    return RedirectToAction("Index", "Category");
+                    return RedirectToAction("ProductIndex");
             }
             return View();
         }
 
-        public async Task<IActionResult> DeleteCategoryDetails(int CategoryId)
+        public async Task<IActionResult> DeleteProductDetails(int ProductId)
         {
-            var data = await _productService.DeleteProductDetailsAsync(CategoryId);
+            var data = await _productService.DeleteProductDetailsAsync(ProductId);
             if (data != null)
             {
                 return View(data);
             }
-            ViewBag.ErrorMessage = "Category Not Found";
+            ViewBag.ErrorMessage = "Product Not Found";
             return View();
         }
-        public async Task<IActionResult> DeleteCategory(int CategoryId)
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteProduct(int ProductId)
         {
-            var staus = await _productService.DeleteProductAsync(CategoryId);
+            var staus = await _productService.DeleteProductAsync(ProductId);
             if (staus)
-                return RedirectToAction("Index");
-            ViewBag.ErrorMessage = "Category Not found";
+                return RedirectToAction("ProductIndex");
+            ViewBag.ErrorMessage = "Product Not found";
             return View();
-        }*/
+        }
     }
 }
