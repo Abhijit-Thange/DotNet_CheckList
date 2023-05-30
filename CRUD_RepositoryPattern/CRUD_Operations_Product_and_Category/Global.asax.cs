@@ -1,4 +1,5 @@
 ﻿using CRUD_Operations_Product_and_Category.JWT_Authentication;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace CRUD_Operations_Product_and_Category
         protected void Application_Start()
         {
             GlobalFilters.Filters.Add(new AuthorizeAttribute()); //Apply Globaly Authentication
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
