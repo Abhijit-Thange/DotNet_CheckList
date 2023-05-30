@@ -11,5 +11,6 @@ namespace BusinessLogicLayer.IRepo
     {
         Task<bool> SignUp(User user);
         Task<bool> Login(User user);
+
     }
 }

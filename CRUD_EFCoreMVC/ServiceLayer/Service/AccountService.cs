@@ -20,7 +20,7 @@ namespace ServiceLayer.Service
 
         public async Task<bool> Login(User user)
         {
-           return await _accountRepo.Login(user);   
+            return await _accountRepo.Login(user);
         }
 
         public async Task<bool> SignUp(User user)

@@ -1,9 +1,11 @@
 ﻿using DataAccessLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.IServices;
 
 namespace CRUD_EFCoreMVC.Controllers
 {
+    
     public class CategoryController : Controller
     {
         private ICategoryService _categoryService;
@@ -13,7 +15,7 @@ namespace CRUD_EFCoreMVC.Controllers
             _categoryService = categoryService;
         }
 
-
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Index()
         {
             var data=await _categoryService.GetCategoryAsync();

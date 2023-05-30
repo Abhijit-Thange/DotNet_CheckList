@@ -12,5 +12,6 @@ namespace ServiceLayer.IServices
         Task<bool> SignUp(User user);
 
         Task<bool> Login(User user);
+
     }
 }

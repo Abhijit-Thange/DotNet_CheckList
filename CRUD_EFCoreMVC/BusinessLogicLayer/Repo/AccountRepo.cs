@@ -1,6 +1,7 @@
 ﻿using BusinessLogicLayer.IRepo;
 using DataAccessLayer.Data;
 using DataAccessLayer.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,24 +21,23 @@ namespace BusinessLogicLayer.Repo
 
         public async Task<bool> SignUp(User user)
         {
-            if(user != null)
+            if (user != null)
             {
                 _dataManager.users.Add(user);
                 await _dataManager.SaveChangesAsync();
                 return true;
             }
-           return false;
+            return false;
         }
 
         public async Task<bool> Login(User user)
         {
-            var data=await _dataManager.users.FirstOrDefault(u=>u.UserName == user.UserName && u.Password==user.Password);
-            if(data != null)
-                return true;
+             var data = await _dataManager.users.FirstOrDefaultAsync(u => u.UserName == user.UserName && u.Password == user.Password);
+             if (data != null)
+                 return true;
 
-            return false;
+             return false;
+           // return true;
         }
-
-        
     }
 }
