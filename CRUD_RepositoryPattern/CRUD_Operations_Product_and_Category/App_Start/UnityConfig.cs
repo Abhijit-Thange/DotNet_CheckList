@@ -6,6 +6,7 @@ using ServiceLayer.Service;
 using System.Web.Mvc;
 using Unity;
 using Unity.Mvc5;
+using Utility;
 
 namespace CRUD_Operations_Product_and_Category
 {
@@ -33,6 +34,11 @@ namespace CRUD_Operations_Product_and_Category
             container.RegisterType<IReportRepo, ReportRepo>();
 
             //Account
+
+            //Utility
+            container.RegisterType<IEmailService, EmailService>();
+            container.RegisterType<ISendEmail, SendEmail>();
+
 
 
 

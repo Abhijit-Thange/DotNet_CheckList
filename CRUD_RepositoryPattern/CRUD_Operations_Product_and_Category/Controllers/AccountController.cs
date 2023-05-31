@@ -1,6 +1,7 @@
 ﻿using CRUD_Operations_Product_and_Category.DAL;
 using CRUD_Operations_Product_and_Category.JWT_Authentication;
 using CRUD_Operations_Product_and_Category.Models;
+using ServiceLayer.IService;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -16,6 +17,12 @@ namespace CRUD_Operations_Product_and_Category.Controllers
     [AllowAnonymous]
     public class AccountController : Controller
     {
+        private readonly IEmailService _emailService;
+        public AccountController(IEmailService emailService)
+        {
+            _emailService = emailService;
+        }
+
         DataManager db=new DataManager();
         // GET: Account
         public ActionResult Login()
@@ -33,7 +40,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
 
                  var JwtToken = TokenManager.GenerateToken(IsUser);
                  Response.Cookies.Set(new HttpCookie("token", JwtToken));
-
+                _emailService.sendMail(user);
                 return RedirectToAction("Index","Home");
             }
             ViewBag.ErrorMessage = "UserName Or Password is wrong";
