@@ -59,8 +59,15 @@ namespace CRUD_Operations_Product_and_Category.JWT_Authentication
                 ValidateLifetime=true
             };
             ClaimsPrincipal principal=null;
-          
+            try
+            {
                 principal = tokenHandler.ValidateToken(token, paremeters, out SecurityToken securityToken);
+            }
+            catch(Exception e)
+            {
+                
+            }
+
 
             return principal;
         }

@@ -12,6 +12,8 @@ namespace CRUD_Operations_Product_and_Category.Controllers
         
         public ActionResult Index()
         {
+            string data = TempData["Message"] as string;
+            TempData["Message"] = data;
             return RedirectToAction("GetCategoryIndex", "Category");
         }
 

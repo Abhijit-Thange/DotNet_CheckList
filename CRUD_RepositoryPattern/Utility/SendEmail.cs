@@ -15,13 +15,13 @@ namespace Utility
     {
         public void sendMail(User user)
         {
-            /* // Send email to logged -in user
-             string emailSubject = "Welcome to our application";
-             string emailBody = "Thank you for logging in. Welcome to our application!";
-             string senderEmail = "arifkhan@nimapinfotech.com";
+           /* // Send email to logged -in user
+            string emailSubject = "Welcome to our application";
+            string emailBody = "Thank you for logging in. Welcome to our application!";
+            string senderEmail = "arifkhan@nimapinfotech.com";
 
-             WebMail.Send(senderEmail, emailSubject, emailBody, null, null, null, true, null, null, null, null, null, null);
-          */   // Sender's email address and display name
+            WebMail.Send(senderEmail, emailSubject, emailBody, null, null, null, true, null, null, null, null, null, null);
+         */   // Sender's email address and display name
             string emailSubject = "Welcome to our application";
             string emailBody = "Thank you for logging in. Welcome to our application!";
             string senderEmail = "thangeabhijit1998@gmail.com";
@@ -43,8 +43,8 @@ namespace Utility
             smtpClient.Credentials = new NetworkCredential("abhijitthange@nimapinfotech.com", "Abhi@1998");
 
             // Send the email
-            smtpClient.Send(mail);
-            //  smtpClient.Send(senderEmail, receiverEmail, emailSubject, emailBody);
+              smtpClient.Send(mail);
+          //  smtpClient.Send(senderEmail, receiverEmail, emailSubject, emailBody);
 
             // Redirect to the desired page after successful login
 

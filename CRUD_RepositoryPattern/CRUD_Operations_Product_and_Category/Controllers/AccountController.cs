@@ -41,6 +41,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
                  var JwtToken = TokenManager.GenerateToken(IsUser);
                  Response.Cookies.Set(new HttpCookie("token", JwtToken));
                 _emailService.sendMail(user);
+                TempData["Message"] = user.UserName + " Loged in Successfully";
                 return RedirectToAction("Index","Home");
             }
             ViewBag.ErrorMessage = "UserName Or Password is wrong";

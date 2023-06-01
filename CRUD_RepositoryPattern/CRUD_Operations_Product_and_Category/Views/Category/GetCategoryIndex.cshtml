@@ -1,8 +1,11 @@
 ﻿@model IEnumerable<CRUD_Operations_Product_and_Category.Models.Category>
 @{
     ViewBag.Title = "Category Index";
+    var message = ViewBag.Message;
 }
-
+<head>
+    <script> alert(message); </script>
+</head>
 <h2>Category List</h2>
 <p>
     <a class="btn btn-info" href="/Report/ProductReport">Report</a>

@@ -11,5 +11,6 @@ namespace CRUD_Operations_Product_and_Category.Models
         public string UserName { get; set; }
         public string Password { get; set; }
         public string UserRole { get; set; }
+      //  public string Email { get; set; }
     }
 }

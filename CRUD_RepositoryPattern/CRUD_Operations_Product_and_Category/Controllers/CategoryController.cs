@@ -48,6 +48,7 @@ namespace CRUD_Operations_Product_and_Category.Controllers
             ViewBag.TotalPage = totalPages;
             ViewBag.PageNo = pageNumber;
 
+            ViewBag.Message = TempData["Message"] as string;
             return View(Categories);
         }
 
