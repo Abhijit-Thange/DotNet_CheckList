@@ -1,0 +1,52 @@
+﻿@model IEnumerable<CRUD_Operations_Product_and_Category.POCO.Report>
+@{
+    ViewBag.Title = "ProductReport";
+}
+
+<h2>ProductReport</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+    </tr>
+
+    @foreach (CRUD_Operations_Product_and_Category.POCO.Report item in ViewBag.Report)
+    {
+        <tr>
+            <td>@item.ProductName</td>
+            <td>@item.CategoryName</td>
+            <td>@item.CreatedBy</td>
+        </tr>
+
+    }
+
+</table>
+
+@{
+    var totalPage = ViewBag.TotalPage;
+    int i = 0;
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+
+          @{  for ( i = 1; i <= totalPage; i++)
+              {
+                  int pageNo = i;
+                   
+                      <li class="page-item" >
+                        @Html.ActionLink(i.ToString(), "ProductReport", new { pageNo = i }) &nbsp; 
+                      </li>
+              }
+           }
+        </ul>
+    </nav>
+}
+
+

@@ -1,0 +1,79 @@
+﻿@model IEnumerable<CRUD_Operations_Product_and_Category.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+<form method="get" action="/products/getproductindex">
+    <div class="form-group">
+        @Html.Label("Select CategoryName", htmlAttributes: new { @class = "control-label col-md-2", style = "color:blue" })
+        <div class="col-md-10">
+            @Html.DropDownList("CategoryId", ViewBag.Categories as SelectList, "-Select-Category-")
+            @Html.ValidationMessage("CategoryId", "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div>
+        <button type="submit" class="btn btn-primary">Products</button>
+    </div>
+</form>
+<hr />
+<h2>Index</h2>
+<p>
+    @Html.ActionLink("Create New", "AddProduct", null, new { CategoryId = ViewBag.CategoryId }, new { @class = "btn btn-outline-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MfgDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MfgDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditProductInfo", new { ProductId = item.ProductId }, new { @class = "btn btn-outline-warning" })
+                @Html.ActionLink("Details", "ProductDetails", new { ProductId = item.ProductId }, new { @class = "btn btn-outline-info" })
+                @Html.ActionLink("Delete", "DeleteProduct", new { ProductId = item.ProductId }, new { @class = "btn btn-outline-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@{
+    double totalPages = ViewBag.TotalPage;
+
+    <ul class="pagination">
+        @{ for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item">
+                    @Html.ActionLink(i.ToString(), "GetProductIndex", new { Page = i, CategoryId = ViewBag.CategoryId }) &nbsp;
+                </li>
+            }
+        }
+    </ul>
+}
+
